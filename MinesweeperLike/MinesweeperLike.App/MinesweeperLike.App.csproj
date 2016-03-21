@@ -49,6 +49,7 @@
     <Compile Include="Contracts\IGameController.cs" />
     <Compile Include="Contracts\IMine.cs" />
     <Compile Include="Core\Engine.cs" />
+    <Compile Include="Core\GameController.cs" />
     <Compile Include="Data\Database.cs" />
     <Compile Include="Enumerations\GameDifficulty.cs" />
     <Compile Include="Forms\GameForm.cs">
@@ -60,6 +61,9 @@
     <Compile Include="Models\Mine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\GameForm.resx">
+      <DependentUpon>GameForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

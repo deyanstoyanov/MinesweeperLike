@@ -3,26 +3,27 @@
     using System;
     using System.Windows.Forms;
 
-    using MinesweeperLike.App.Enumerations;
-
     public interface IGameController
     {
         Button ClickedButton { get; }
 
-        IDatabase Database { get; }
+        Form GameField { get; }
 
-        GameDifficulty GameDifficulty { get; }
+        IDatabase Database { get; }
 
         Label LabelToShow { get; }
 
-        int Score { get; }
+        Timer Timer { get; }
 
-        Timer Time { get; }
+        int Time { get; }
 
         void ButtonOnClick(object sender, EventArgs e);
 
         void LoadButtonsToGameField();
 
         void LoadLabelToGameField(Label label);
+
+        void IncreaseTimer(object sender, EventArgs e);
+
     }
 }

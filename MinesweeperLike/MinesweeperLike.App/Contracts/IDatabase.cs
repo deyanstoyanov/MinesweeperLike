@@ -13,14 +13,12 @@
 
         IEnumerable<IMine> Mines { get; }
 
-        IEnumerable<int> RandomScores { get; }
+        void AddButtons();
 
-        void CreateButtons();
+        void AddLabels(Form form);
 
-        void CreateLabels();
+        void AddMines();
 
-        void GenerateRandomScores();
-
-        void LoadRandomScoresToGameField();
+        void AddNumbers();
     }
 }
