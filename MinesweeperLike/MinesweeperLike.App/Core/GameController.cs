@@ -114,9 +114,12 @@
 
         public void LoadButtonsToGameField()
         {
-            for (int i = 0; i < this.Database.Buttons.GetLength(0); i++)
+            int width = this.Database.Buttons.GetLength(0);
+            int height = this.Database.Buttons.GetLength(1);
+
+            for (int i = 0; i < width; i++)
             {
-                for (int j = 0; j < this.Database.Buttons.GetLength(1); j++)
+                for (int j = 0; j < height; j++)
                 {
                     Button currentButton = this.Database.Buttons[i, j];
                     currentButton.Click += this.ButtonOnClick;
