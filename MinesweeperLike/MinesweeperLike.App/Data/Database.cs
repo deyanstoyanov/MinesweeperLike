@@ -1,5 +1,6 @@
 ﻿namespace MinesweeperLike.App.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
@@ -14,11 +15,17 @@
 
         private const int GameFieldSizeHeight = 16;
 
+        private const int PersentOfGameSizeForCreatingMines = 20;
+
+        private const int MineFontSize = 22;
+
         private const int LabelFontSize = 12;
 
         private int windowPositionX = 10;
 
         private int windowPositionY = 60;
+
+        private int mine = -1;
 
         private Button[,] buttons;
 
@@ -155,7 +162,35 @@
 
         public void AddMines()
         {
-            throw new System.NotImplementedException();
+            int width = this.GameField.GetLength(0);
+            int height = this.GameField.GetLength(1);
+            Random radnom = new Random();
+
+            double minesCount = (width * height) * (PersentOfGameSizeForCreatingMines / 100);
+
+            for (int i = 0; i < (int)minesCount; i++)
+            {
+                int mineX = radnom.Next(width);
+                int mineY = radnom.Next(height);
+
+                var currentLabel = this.CreateMine(mineX, mineY);
+                this.labels[mineX, mineY] = currentLabel;
+                this.gameField[mineX, mineY] = this.mine;
+            }
+        }
+
+        private Label CreateMine(int mineX, int mineY)
+        {
+            Label currentLabel = this.labels[mineX, mineY];
+            int labelLocationX = this.labels[mineX, mineY].Location.X;
+            int labelLocationY = this.labels[mineX, mineY].Location.Y;
+
+            currentLabel.Text = "*";
+            currentLabel.Font = new Font("Microsoft Sans Serif", MineFontSize, FontStyle.Bold, currentLabel.Font.Unit);
+            currentLabel.TextAlign = ContentAlignment.MiddleCenter;
+            currentLabel.Location = new Point(labelLocationX, labelLocationY);
+
+            return currentLabel;
         }
 
         public void AddNumbers()

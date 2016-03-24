@@ -24,6 +24,7 @@
             this.database.AddButtons();
             this.gameController.LoadButtonsToGameField();
             this.database.AddLabels(this.form);
+            this.database.AddMines();
         }
     }
 }
