@@ -3,13 +3,18 @@
     using System;
     using System.Windows.Forms;
 
+    using MinesweeperLike.App.Constants;
     using MinesweeperLike.App.Contracts;
+    using MinesweeperLike.App.Core.Factories;
+    using MinesweeperLike.App.Models;
 
     public class GameController : IGameController
     {
-        private Button clickedButton;
+        private GameButton clickedButton;
 
         private IDatabase database;
+
+        private IButtonFactory buttonFactory;
 
         private Label labelToShow;
 
@@ -21,15 +26,16 @@
 
         public GameController(IDatabase database, Form gameField)
         {
-            this.ClickedButton = new Button();
             this.Database = database;
-            this.LabelToShow = new Label();
             this.GameField = gameField;
+            this.buttonFactory = new ButtonFactory();
+            this.ClickedButton = new GameButton();
+            this.LabelToShow = new Label();
             this.Time = time;
             this.timer = new Timer();
         }
 
-        public Button ClickedButton
+        public GameButton ClickedButton
         {
             get
             {
@@ -65,6 +71,14 @@
             private set
             {
                 this.database = value;
+            }
+        }
+
+        public IButtonFactory ButtonFactory
+        {
+            get
+            {
+                return this.buttonFactory;
             }
         }
 
@@ -112,30 +126,32 @@
             throw new NotImplementedException();
         }
 
-        public void LoadButtonsToGameField()
+        public void CreateButtons(Form form)
         {
             int width = this.Database.Buttons.GetLength(0);
             int height = this.Database.Buttons.GetLength(1);
 
-            for (int i = 0; i < width; i++)
+            int windowLocationHeight = ButtonSettings.WindowLocationHeight;
+
+            for (int row = 0; row < width; row++)
             {
-                for (int j = 0; j < height; j++)
+                int windowLocationWidth = ButtonSettings.WindowLocationWidth;
+
+                for (int col = 0; col < height; col++)
                 {
-                    Button currentButton = this.Database.Buttons[i, j];
-                    currentButton.Click += this.ButtonOnClick;
-                    this.GameField.Controls.Add(currentButton);
+                    GameButton newButton = this.ButtonFactory.CreateButton(windowLocationWidth, windowLocationHeight, row, col) as GameButton;
+                    if (newButton != null)
+                    {
+                        newButton.MouseUp += this.ButtonOnClick;
+                        windowLocationWidth = newButton.Right;
+
+                        form.Controls.Add(newButton);
+                        this.Database.AddButton(newButton, row, col);
+                    }
                 }
+
+                windowLocationHeight += ButtonSettings.ButtonSizeWidth;
             }
-        }
-
-        public void LoadLabelToGameField(Label label)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void IncreaseTimer(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }

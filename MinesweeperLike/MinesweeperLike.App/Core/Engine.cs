@@ -3,6 +3,7 @@
     using System.Windows.Forms;
 
     using MinesweeperLike.App.Contracts;
+    using MinesweeperLike.App.Data;
 
     public class Engine : IEngine
     {
@@ -12,19 +13,23 @@
 
         private Form form;
 
-        public Engine(IDatabase database, IGameController gameController, Form form)
+        public Engine(Form form)
         {
-            this.database = database;
-            this.gameController = gameController;
             this.form = form;
+            this.database = new Database();
+            this.gameController = new GameController(this.database, form);
         }
 
         public void Run()
         {
-            this.database.AddButtons();
-            this.gameController.LoadButtonsToGameField();
-            this.database.AddLabels(this.form);
-            this.database.AddMines();
+            this.Execute();
+        }
+
+        private void Execute()
+        {
+            this.gameController.CreateButtons(this.form);
+            this.database.AddLabel(this.form);
+            this.database.AddMine();
         }
     }
 }

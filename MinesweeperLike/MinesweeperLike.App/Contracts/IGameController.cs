@@ -3,9 +3,11 @@
     using System;
     using System.Windows.Forms;
 
+    using MinesweeperLike.App.Models;
+
     public interface IGameController
     {
-        Button ClickedButton { get; }
+        GameButton ClickedButton { get; }
 
         Form GameField { get; }
 
@@ -19,11 +21,7 @@
 
         void ButtonOnClick(object sender, EventArgs e);
 
-        void LoadButtonsToGameField();
-
-        void LoadLabelToGameField(Label label);
-
-        void IncreaseTimer(object sender, EventArgs e);
+        void CreateButtons(Form form);
 
     }
 }

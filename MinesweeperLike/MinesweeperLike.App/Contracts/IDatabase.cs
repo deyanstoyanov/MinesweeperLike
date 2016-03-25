@@ -5,20 +5,18 @@
 
     public interface IDatabase
     {
-        Button[,] Buttons { get; }
+        IGameButton[,] Buttons { get; }
 
         int[,] GameField { get; }
 
         Label[,] Labels { get; }
 
-        IEnumerable<IMine> Mines { get; }
+        void AddButton(IGameButton button, int row, int col);
 
-        void AddButtons();
+        void AddLabel(Form form);
 
-        void AddLabels(Form form);
+        void AddMine();
 
-        void AddMines();
-
-        void AddNumbers();
+        void AddNumber();
     }
 }
