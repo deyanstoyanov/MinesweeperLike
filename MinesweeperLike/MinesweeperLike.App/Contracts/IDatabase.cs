@@ -13,7 +13,7 @@
 
         void AddButton(IGameButton button, int row, int col);
 
-        void AddLabel(Form form);
+        void AddLabel(Label label, int row, int col);
 
         void AddMine();
 

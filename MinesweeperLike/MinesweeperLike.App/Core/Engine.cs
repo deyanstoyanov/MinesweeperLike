@@ -28,7 +28,7 @@
         private void Execute()
         {
             this.gameController.CreateButtons(this.form);
-            this.database.AddLabel(this.form);
+            this.gameController.CreateLabels(this.form);
             this.database.AddMine();
         }
     }

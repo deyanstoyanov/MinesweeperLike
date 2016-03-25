@@ -16,6 +16,8 @@
 
         private IButtonFactory buttonFactory;
 
+        private ILabelFactory labelFactory;
+
         private Label labelToShow;
 
         private Timer timer;
@@ -29,6 +31,7 @@
             this.Database = database;
             this.GameField = gameField;
             this.buttonFactory = new ButtonFactory();
+            this.labelFactory = new LabelFactory();
             this.ClickedButton = new GameButton();
             this.LabelToShow = new Label();
             this.Time = time;
@@ -82,6 +85,14 @@
             }
         }
 
+        public ILabelFactory LabelFactory
+        {
+            get
+            {
+                return this.labelFactory;
+            }
+        }
+
         public Label LabelToShow
         {
             get
@@ -121,9 +132,21 @@
             }
         }
 
-        public void ButtonOnClick(object sender, EventArgs e)
+        public void MouseClick(object sender, MouseEventArgs e)
         {
-            throw new NotImplementedException();
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    this.LeftButtonOnClick(sender, e);
+                    break;
+            }
+        }
+
+        private void LeftButtonOnClick(object sender, EventArgs mouseEventArgs)
+        {
+            this.ClickedButton = sender as GameButton;
+
+            this.ClickedButton.Hide();
         }
 
         public void CreateButtons(Form form)
@@ -142,7 +165,7 @@
                     GameButton newButton = this.ButtonFactory.CreateButton(windowLocationWidth, windowLocationHeight, row, col) as GameButton;
                     if (newButton != null)
                     {
-                        newButton.MouseUp += this.ButtonOnClick;
+                        newButton.MouseUp += this.MouseClick;
                         windowLocationWidth = newButton.Right;
 
                         form.Controls.Add(newButton);
@@ -151,6 +174,27 @@
                 }
 
                 windowLocationHeight += ButtonSettings.ButtonSizeWidth;
+            }
+        }
+
+        public void CreateLabels(Form form)
+        {
+            int width = this.Database.Labels.GetLength(0);
+            int height = this.Database.Labels.GetLength(1);
+
+            for (int row = 0; row < width; row++)
+            {
+                for (int col = 0; col < height; col++)
+                {
+                    int buttonLocationX = this.Database.Buttons[row, col].LocationX;
+                    int buttonLocationY = this.Database.Buttons[row, col].LocationY;
+
+                    Label newLabel = this.LabelFactory.CreateLabel(buttonLocationX, buttonLocationY, row, col);
+
+                    form.Controls.Add(newLabel);
+
+                    this.Database.AddLabel(newLabel, row, col);
+                }
             }
         }
     }

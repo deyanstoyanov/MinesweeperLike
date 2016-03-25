@@ -1,7 +1,6 @@
 ﻿namespace MinesweeperLike.App.Data
 {
     using System;
-    using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
 
@@ -10,7 +9,7 @@
 
     public class Database : IDatabase
     {
-        private int mine = -1;
+        //private int mine = -1;
 
         private IGameButton[,] buttons;
 
@@ -70,38 +69,9 @@
             this.Buttons[row, col] = button;
         }
 
-        public void AddLabel(Form form)
+        public void AddLabel(Label label, int row, int col)
         {
-            int width = this.labels.GetLength(0);
-            int height = this.labels.GetLength(1);
-
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    int buttonLocationX = this.buttons[i, j].LocationX;
-                    int buttonLocationY = this.buttons[i, j].LocationY;
-
-                    Label label = CreateLabel(buttonLocationX, buttonLocationY, i, j);
-                    form.Controls.Add(label);
-                    this.labels[i, j] = label;
-                }
-            }
-        }
-
-        private Label CreateLabel(int buttonLocationX, int buttonLocationY, int i, int j)
-        {
-            Label label = new Label();
-            label.Size = new Size(LabelSettings.LabelSizeWidth, LabelSettings.LabelSizeHeight);
-            label.Location = new Point(buttonLocationX, buttonLocationY);
-            label.Name = string.Format("{0}-{1}", i, j);
-            label.Text = string.Empty;
-            label.BorderStyle = BorderStyle.FixedSingle;
-            label.BackColor = Color.LightGray;
-            label.Font = new Font("Microsoft Sans Serif", LabelSettings.LabelFontSize, FontStyle.Bold, label.Font.Unit);
-            label.TextAlign = ContentAlignment.MiddleCenter;
-
-            return label;
+            this.Labels[row, col] = label;
         }
 
         public void AddMine()
@@ -119,7 +89,7 @@
 
                 var currentLabel = this.CreateMine(mineX, mineY);
                 this.labels[mineX, mineY] = currentLabel;
-                this.gameField[mineX, mineY] = this.mine;
+                this.gameField[mineX, mineY] = -1;
             }
         }
 

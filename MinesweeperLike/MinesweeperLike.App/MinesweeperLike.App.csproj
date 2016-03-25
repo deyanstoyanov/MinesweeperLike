@@ -53,9 +53,11 @@
     <Compile Include="Contracts\IEngine.cs" />
     <Compile Include="Contracts\IGameButton.cs" />
     <Compile Include="Contracts\IGameController.cs" />
+    <Compile Include="Contracts\ILabelFactory.cs" />
     <Compile Include="Contracts\IMine.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\Factories\ButtonFactory.cs" />
+    <Compile Include="Core\Factories\LabelFactory.cs" />
     <Compile Include="Core\GameController.cs" />
     <Compile Include="Data\Database.cs" />
     <Compile Include="Enumerations\GameDifficulty.cs" />
