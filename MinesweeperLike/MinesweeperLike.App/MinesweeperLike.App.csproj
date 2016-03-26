@@ -54,13 +54,15 @@
     <Compile Include="Contracts\IGameButton.cs" />
     <Compile Include="Contracts\IGameController.cs" />
     <Compile Include="Contracts\ILabelFactory.cs" />
-    <Compile Include="Contracts\IMine.cs" />
+    <Compile Include="Contracts\IMineFactory.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\Factories\ButtonFactory.cs" />
     <Compile Include="Core\Factories\LabelFactory.cs" />
+    <Compile Include="Core\Factories\MineFactory.cs" />
     <Compile Include="Core\GameController.cs" />
     <Compile Include="Data\Database.cs" />
     <Compile Include="Enumerations\GameDifficulty.cs" />
+    <Compile Include="Enumerations\NumberColor.cs" />
     <Compile Include="Forms\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,7 +72,6 @@
     <Compile Include="Models\GameButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Models\Mine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\GameForm.resx">

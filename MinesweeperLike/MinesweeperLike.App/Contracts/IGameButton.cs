@@ -11,7 +11,5 @@
         int LocationX { get; }
 
         int LocationY { get; }
-
-        bool Visible { get; set; }
     }
 }

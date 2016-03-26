@@ -1,6 +1,7 @@
 ﻿namespace MinesweeperLike.App.Core
 {
     using System;
+    using System.Drawing;
     using System.Windows.Forms;
 
     using MinesweeperLike.App.Constants;
@@ -8,15 +9,19 @@
     using MinesweeperLike.App.Core.Factories;
     using MinesweeperLike.App.Models;
 
+    using sweeperLike.App.Constants;
+
     public class GameController : IGameController
     {
         private GameButton clickedButton;
 
         private IDatabase database;
 
-        private IButtonFactory buttonFactory;
+        private readonly IButtonFactory buttonFactory;
 
-        private ILabelFactory labelFactory;
+        private readonly ILabelFactory labelFactory;
+
+        private readonly IMineFactory mineFactory;
 
         private Label labelToShow;
 
@@ -26,16 +31,28 @@
 
         private Form gameField;
 
+        private bool dead;
+
+
         public GameController(IDatabase database, Form gameField)
         {
             this.Database = database;
             this.GameField = gameField;
             this.buttonFactory = new ButtonFactory();
             this.labelFactory = new LabelFactory();
+            this.mineFactory = new MineFactory();
             this.ClickedButton = new GameButton();
             this.LabelToShow = new Label();
             this.Time = time;
             this.timer = new Timer();
+        }
+
+        public int MineValue
+        {
+            get
+            {
+                return -1;
+            }
         }
 
         public GameButton ClickedButton
@@ -93,6 +110,14 @@
             }
         }
 
+        public IMineFactory MineFactory
+        {
+            get
+            {
+                return this.mineFactory;
+            }
+        }
+
         public Label LabelToShow
         {
             get
@@ -142,13 +167,6 @@
             }
         }
 
-        private void LeftButtonOnClick(object sender, EventArgs mouseEventArgs)
-        {
-            this.ClickedButton = sender as GameButton;
-
-            this.ClickedButton.Hide();
-        }
-
         public void CreateButtons(Form form)
         {
             int width = this.Database.Buttons.GetLength(0);
@@ -190,12 +208,53 @@
                     int buttonLocationY = this.Database.Buttons[row, col].LocationY;
 
                     Label newLabel = this.LabelFactory.CreateLabel(buttonLocationX, buttonLocationY, row, col);
-
                     form.Controls.Add(newLabel);
-
                     this.Database.AddLabel(newLabel, row, col);
                 }
             }
+        }
+
+        public void CreateMines()
+        {
+            Random random = new Random();
+            int width = this.Database.GameField.GetLength(0);
+            int height = this.Database.GameField.GetLength(1);
+
+            int minesCount = (int)((width * height) * (MineSettings.PersentOfGameSizeForCreatingMines / 100));
+
+            for (int i = 0; i < minesCount; i++)
+            {
+                int mineCoordinateX = random.Next(width);
+                int mineCoordinateY = random.Next(height);
+                int mineLocationX = this.Database.Labels[mineCoordinateX, mineCoordinateY].Location.X;
+                int mineLocationY = this.Database.Labels[mineCoordinateX, mineCoordinateY].Location.Y;
+
+                this.MineFactory.CreateMine(
+                    this.Database,
+                    mineCoordinateX,
+                    mineCoordinateY,
+                    mineLocationX,
+                    mineLocationY);
+
+                this.Database.AddMine(mineCoordinateX, mineCoordinateY);
+            }
+        }
+
+        public void CreateNumbers()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void LeftButtonOnClick(object sender, EventArgs e)
+        {
+            this.ClickedButton = sender as GameButton;
+
+            this.ClickedButton.Hide();
+        }
+
+        private void RemoveEmptyLabels(int buttonX, int buttonY)
+        {
+            throw new NotImplementedException();
         }
     }
 }

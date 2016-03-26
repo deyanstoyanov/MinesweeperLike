@@ -1,17 +1,17 @@
 ﻿namespace MinesweeperLike.App.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
 
     using MinesweeperLike.App.Constants;
     using MinesweeperLike.App.Contracts;
+    using MinesweeperLike.App.Models;
 
     public class Database : IDatabase
     {
-        //private int mine = -1;
-
-        private IGameButton[,] buttons;
+        private GameButton[,] buttons;
 
         private int[,] gameField;
 
@@ -19,12 +19,12 @@
 
         public Database()
         {
-            this.Buttons = new IGameButton[FieldSettings.FieldSizeWidth, FieldSettings.FieldSizeHeight];
+            this.Buttons = new GameButton[FieldSettings.FieldSizeWidth, FieldSettings.FieldSizeHeight];
             this.GameField = new int[FieldSettings.FieldSizeWidth, FieldSettings.FieldSizeHeight];
             this.Labels = new Label[FieldSettings.FieldSizeWidth, FieldSettings.FieldSizeHeight];
         }
 
-        public IGameButton[,] Buttons
+        public GameButton[,] Buttons
         {
             get
             {
@@ -63,10 +63,9 @@
             }
         }
 
-
         public void AddButton(IGameButton button, int row, int col)
         {
-            this.Buttons[row, col] = button;
+            this.Buttons[row, col] = button as GameButton;
         }
 
         public void AddLabel(Label label, int row, int col)
@@ -74,42 +73,14 @@
             this.Labels[row, col] = label;
         }
 
-        public void AddMine()
+        public void AddMine(int row, int col)
         {
-            int width = this.GameField.GetLength(0);
-            int height = this.GameField.GetLength(1);
-            Random radnom = new Random();
-
-            double minesCount = (width * height) * (MineSettings.PersentOfGameSizeForCreatingMines / 100);
-
-            for (int i = 0; i < (int)minesCount; i++)
-            {
-                int mineX = radnom.Next(width);
-                int mineY = radnom.Next(height);
-
-                var currentLabel = this.CreateMine(mineX, mineY);
-                this.labels[mineX, mineY] = currentLabel;
-                this.gameField[mineX, mineY] = -1;
-            }
-        }
-
-        private Label CreateMine(int mineX, int mineY)
-        {
-            Label currentLabel = this.labels[mineX, mineY];
-            int labelLocationX = this.labels[mineX, mineY].Location.X;
-            int labelLocationY = this.labels[mineX, mineY].Location.Y;
-
-            currentLabel.Text = "*";
-            currentLabel.Font = new Font("Microsoft Sans Serif", MineSettings.MineFontSize, FontStyle.Bold, currentLabel.Font.Unit);
-            currentLabel.TextAlign = ContentAlignment.MiddleCenter;
-            currentLabel.Location = new Point(labelLocationX, labelLocationY);
-
-            return currentLabel;
+            this.GameField[row, col] = -1;
         }
 
         public void AddNumber()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

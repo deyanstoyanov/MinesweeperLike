@@ -3,9 +3,11 @@
     using System.Collections.Generic;
     using System.Windows.Forms;
 
+    using MinesweeperLike.App.Models;
+
     public interface IDatabase
     {
-        IGameButton[,] Buttons { get; }
+        GameButton[,] Buttons { get; }
 
         int[,] GameField { get; }
 
@@ -15,7 +17,7 @@
 
         void AddLabel(Label label, int row, int col);
 
-        void AddMine();
+        void AddMine(int row, int col);
 
         void AddNumber();
     }

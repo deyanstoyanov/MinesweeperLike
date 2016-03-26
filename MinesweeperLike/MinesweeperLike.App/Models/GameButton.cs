@@ -14,8 +14,6 @@
 
         private int locationY;
 
-        private bool visible;
-
         public GameButton()
         {
         }
@@ -69,18 +67,6 @@
             set
             {
                 this.locationY = value;
-            }
-        }
-
-        public bool Visible
-        {
-            get
-            {
-                return this.visible;
-            }
-            set
-            {
-                this.visible = value;
             }
         }
     }

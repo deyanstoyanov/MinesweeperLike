@@ -24,5 +24,9 @@
         void CreateButtons(Form form);
 
         void CreateLabels(Form form);
+
+        void CreateMines();
+
+        void CreateNumbers();
     }
 }

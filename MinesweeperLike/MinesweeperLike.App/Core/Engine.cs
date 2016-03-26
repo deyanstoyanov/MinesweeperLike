@@ -29,7 +29,7 @@
         {
             this.gameController.CreateButtons(this.form);
             this.gameController.CreateLabels(this.form);
-            this.database.AddMine();
+            this.gameController.CreateMines();
         }
     }
 }
