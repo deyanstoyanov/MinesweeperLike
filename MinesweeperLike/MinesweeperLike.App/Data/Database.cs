@@ -78,9 +78,37 @@
             this.GameField[row, col] = -1;
         }
 
-        public void AddNumber()
+        public void AddNumber(int number, int row, int col)
         {
-            throw new NotImplementedException();
+            this.GameField[row, col] = number;
+            //Color newColor = this.SetTheColorOfTheNumber(number);
+            //this.Labels[row, col].ForeColor = newColor;
+            this.Labels[row, col].Text = number.ToString();
         }
+
+        //private Color SetTheColorOfTheNumber(int number)
+        //{
+        //    switch (number)
+        //    {
+        //        case 1:
+        //            return Color.Blue;
+        //        case 2:
+        //            return Color.Green;
+        //        case 3:
+        //            return Color.Red;
+        //        case 4:
+        //           return Color.DarkBlue;
+        //        case 5:
+        //            return Color.SaddleBrown;
+        //        case 6:
+        //            return Color.MediumAquamarine;
+        //        case 7:
+        //            return Color.Black;
+        //        case 8:
+        //            return Color.DimGray;
+        //        default:
+        //            throw new ArgumentOutOfRangeException("number", @"Number should be in range [1-8]");
+        //    }
+        //}
     }
 }

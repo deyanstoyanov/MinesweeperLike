@@ -30,6 +30,7 @@
             this.gameController.CreateButtons(this.form);
             this.gameController.CreateLabels(this.form);
             this.gameController.CreateMines();
+            this.gameController.CreateNumbers();
         }
     }
 }

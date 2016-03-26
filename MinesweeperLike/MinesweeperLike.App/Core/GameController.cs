@@ -1,7 +1,6 @@
 ﻿namespace MinesweeperLike.App.Core
 {
     using System;
-    using System.Drawing;
     using System.Windows.Forms;
 
     using MinesweeperLike.App.Constants;
@@ -13,15 +12,15 @@
 
     public class GameController : IGameController
     {
-        private GameButton clickedButton;
-
-        private IDatabase database;
-
         private readonly IButtonFactory buttonFactory;
 
         private readonly ILabelFactory labelFactory;
 
         private readonly IMineFactory mineFactory;
+
+        private IDatabase database;
+
+        private GameButton clickedButton;
 
         private Label labelToShow;
 
@@ -45,6 +44,43 @@
             this.LabelToShow = new Label();
             this.Time = time;
             this.timer = new Timer();
+        }
+
+        public IButtonFactory ButtonFactory
+        {
+            get
+            {
+                return this.buttonFactory;
+            }
+        }
+
+        public ILabelFactory LabelFactory
+        {
+            get
+            {
+                return this.labelFactory;
+            }
+        }
+
+        public IMineFactory MineFactory
+        {
+            get
+            {
+                return this.mineFactory;
+            }
+        }
+
+        public IDatabase Database
+        {
+            get
+            {
+                return this.database;
+            }
+
+            private set
+            {
+                this.database = value;
+            }
         }
 
         public int MineValue
@@ -78,43 +114,6 @@
             private set
             {
                 this.gameField = value;
-            }
-        }
-
-        public IDatabase Database
-        {
-            get
-            {
-                return this.database;
-            }
-
-            private set
-            {
-                this.database = value;
-            }
-        }
-
-        public IButtonFactory ButtonFactory
-        {
-            get
-            {
-                return this.buttonFactory;
-            }
-        }
-
-        public ILabelFactory LabelFactory
-        {
-            get
-            {
-                return this.labelFactory;
-            }
-        }
-
-        public IMineFactory MineFactory
-        {
-            get
-            {
-                return this.mineFactory;
             }
         }
 
@@ -242,14 +241,57 @@
 
         public void CreateNumbers()
         {
-            throw new NotImplementedException();
+            int width = this.Database.GameField.GetLength(0);
+            int height = this.Database.GameField.GetLength(1);
+
+            for (int row = 0; row < width; row++)
+            {
+                for (int col = 0; col < height; col++)
+                {
+                    int currentPosition = this.Database.GameField[row, col];
+                    int number = 0;
+
+                    if (currentPosition == this.MineValue)
+                    {
+                        continue;
+                    }
+
+                    for (int i = -1; i < 2; i++)
+                    {
+                        for (int j = -1; j < 2; j++)
+                        {
+                            if (this.InBounds(width, height, row, i, col, j) && this.IsMine(row, i, col, j))
+                            {
+                                number++;                                
+                            }
+                        }
+                    }
+
+                    this.Database.AddNumber(number, row, col);
+                }
+            }
         }
 
         private void LeftButtonOnClick(object sender, EventArgs e)
         {
             this.ClickedButton = sender as GameButton;
 
-            this.ClickedButton.Hide();
+            this.ClickedButton.Visible = false;
+        }
+
+        private bool IsEmpty(int buttonX, int buttonY)
+        {
+            return this.database.GameField[buttonX, buttonY] == 0;
+        }
+
+        private bool InBounds(int width, int height, int row, int k, int col, int l)
+        {
+            return row + k >= 0 && col + l >= 0 && row + k < width && col + l < height;
+        }
+
+        private bool IsMine(int row, int k, int col, int l)
+        {
+            return this.Database.GameField[row + k, col + l] == this.MineValue;
         }
 
         private void RemoveEmptyLabels(int buttonX, int buttonY)

@@ -19,6 +19,6 @@
 
         void AddMine(int row, int col);
 
-        void AddNumber();
+        void AddNumber(int number, int row, int col);
     }
 }

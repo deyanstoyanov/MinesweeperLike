@@ -7,3 +7,4 @@ D:\SharedFolder\Education\SoftUni\MyProjects\GitHub\MinesweeperLike\MinesweeperL
 D:\SharedFolder\Education\SoftUni\MyProjects\GitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.csproj.GenerateResource.Cache
 D:\SharedFolder\Education\SoftUni\MyProjects\GitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.exe
 D:\SharedFolder\Education\SoftUni\MyProjects\GitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.pdb
+D:\SharedFolder\Education\SoftUni\MyProjects\GitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.csprojResolveAssemblyReference.cache
