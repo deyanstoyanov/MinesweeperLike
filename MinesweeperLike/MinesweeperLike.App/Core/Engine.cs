@@ -27,10 +27,20 @@
 
         private void Execute()
         {
-            this.gameController.CreateButtons(this.form);
+            this.gameController.CreateButtons(this.form, this.MouseClick);
             this.gameController.CreateLabels(this.form);
             this.gameController.CreateMines();
             this.gameController.CreateNumbers();
+        }
+
+        public void MouseClick(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    this.gameController.LeftButtonOnClick(sender, e);
+                    break;
+            }
         }
     }
 }

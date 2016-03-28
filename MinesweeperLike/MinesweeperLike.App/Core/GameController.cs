@@ -1,6 +1,9 @@
 ﻿namespace MinesweeperLike.App.Core
 {
     using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
     using System.Windows.Forms;
 
     using MinesweeperLike.App.Constants;
@@ -156,17 +159,7 @@
             }
         }
 
-        public void MouseClick(object sender, MouseEventArgs e)
-        {
-            switch (e.Button)
-            {
-                case MouseButtons.Left:
-                    this.LeftButtonOnClick(sender, e);
-                    break;
-            }
-        }
-
-        public void CreateButtons(Form form)
+        public void CreateButtons(Form form, MouseEventHandler mouseClick)
         {
             int width = this.Database.Buttons.GetLength(0);
             int height = this.Database.Buttons.GetLength(1);
@@ -182,7 +175,7 @@
                     GameButton newButton = this.ButtonFactory.CreateButton(windowLocationWidth, windowLocationHeight, row, col) as GameButton;
                     if (newButton != null)
                     {
-                        newButton.MouseUp += this.MouseClick;
+                        newButton.MouseUp += mouseClick;
                         windowLocationWidth = newButton.Right;
 
                         form.Controls.Add(newButton);
@@ -203,8 +196,8 @@
             {
                 for (int col = 0; col < height; col++)
                 {
-                    int buttonLocationX = this.Database.Buttons[row, col].LocationX;
-                    int buttonLocationY = this.Database.Buttons[row, col].LocationY;
+                    int buttonLocationX = this.Database.Buttons[row, col].Location.X;
+                    int buttonLocationY = this.Database.Buttons[row, col].Location.Y;
 
                     Label newLabel = this.LabelFactory.CreateLabel(buttonLocationX, buttonLocationY, row, col);
                     form.Controls.Add(newLabel);
@@ -219,12 +212,33 @@
             int width = this.Database.GameField.GetLength(0);
             int height = this.Database.GameField.GetLength(1);
 
-            int minesCount = (int)((width * height) * (MineSettings.PersentOfGameSizeForCreatingMines / 100));
+            //int minesCount = (int)((width * height) * (MineSettings.PersentOfGameSizeForCreatingMines / 100));
+            int minesCount = MineSettings.MineCount;
 
-            for (int i = 0; i < minesCount; i++)
+            if (minesCount > width * height)
+            {
+                throw new ArgumentOutOfRangeException("Mines can not be more than game field size");
+            }
+
+            int minesCounter = 0;
+            List<int> mines = new List<int>(minesCount);
+
+            while (minesCounter != minesCount)
             {
                 int mineCoordinateX = random.Next(width);
                 int mineCoordinateY = random.Next(height);
+
+                string mineCoordinates = string.Format("{0}{1}", mineCoordinateX, mineCoordinateY);
+                int currentMine = Convert.ToInt32(mineCoordinates);
+                bool exist = mines.Any(n => n == currentMine);
+
+                if (exist)
+                {
+                    continue;
+                }
+
+                mines.Add(currentMine);
+
                 int mineLocationX = this.Database.Labels[mineCoordinateX, mineCoordinateY].Location.X;
                 int mineLocationY = this.Database.Labels[mineCoordinateX, mineCoordinateY].Location.Y;
 
@@ -236,6 +250,7 @@
                     mineLocationY);
 
                 this.Database.AddMine(mineCoordinateX, mineCoordinateY);
+                minesCounter++;
             }
         }
 
@@ -272,9 +287,29 @@
             }
         }
 
-        private void LeftButtonOnClick(object sender, EventArgs e)
+        public void LeftButtonOnClick(object sender, EventArgs e)
         {
             this.ClickedButton = sender as GameButton;
+
+            int buttonCoordinateX = this.ClickedButton.Row;
+            int buttonCoordinateY = this.ClickedButton.Col;
+
+            this.LabelToShow = this.Database.Labels[buttonCoordinateX, buttonCoordinateY];
+
+
+            if (this.Database.GameField[buttonCoordinateX, buttonCoordinateY] == this.MineValue)
+            {
+
+                this.LabelToShow.ForeColor = Color.Black;
+                this.LabelToShow.BackColor = Color.Red;
+
+                this.ClickedButton.Visible = false;
+            }
+
+            if (this.IsEmpty(buttonCoordinateX, buttonCoordinateY))
+            {
+                this.RemoveEmptyLabels(buttonCoordinateX, buttonCoordinateY);
+            }
 
             this.ClickedButton.Visible = false;
         }
@@ -296,7 +331,33 @@
 
         private void RemoveEmptyLabels(int buttonX, int buttonY)
         {
-            throw new NotImplementedException();
+            if (!this.database.Buttons[buttonX, buttonY].Visible)
+            {
+                return;
+            }
+
+            int width = this.Database.GameField.GetLength(0);
+            int height = this.Database.GameField.GetLength(1);
+
+            var currentButton = this.Database.Buttons[buttonX, buttonY];
+            int currentPosition = this.Database.GameField[buttonX, buttonY];
+
+            for (int i = -1; i < 2; i++)
+            {
+                for (int j = -1; j < 2; j++)
+                {
+                    if (!this.InBounds(width, height, buttonX, i, buttonY, j))
+                    {
+                        continue;
+                    }
+
+                    currentButton.Visible = false;
+                    if (currentPosition == 0)
+                    {
+                        this.RemoveEmptyLabels(buttonX + i, buttonY + j);
+                    }
+                }
+            }
         }
     }
 }

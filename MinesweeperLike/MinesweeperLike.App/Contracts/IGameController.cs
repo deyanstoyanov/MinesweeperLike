@@ -19,9 +19,9 @@
 
         int Time { get; }
 
-        void MouseClick(object sender, MouseEventArgs e);
+        void LeftButtonOnClick(object sender, EventArgs e);
 
-        void CreateButtons(Form form);
+        void CreateButtons(Form form, MouseEventHandler mouseClick);
 
         void CreateLabels(Form form);
 

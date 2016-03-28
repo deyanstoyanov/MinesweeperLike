@@ -7,9 +7,5 @@
         int Row { get; }
 
         int Col { get; }
-
-        int LocationX { get; }
-
-        int LocationY { get; }
     }
 }
