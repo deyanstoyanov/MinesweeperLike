@@ -16,3 +16,12 @@ D:\YandexDisk\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.Ap
 D:\YandexDisk\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.csproj.GenerateResource.Cache
 D:\YandexDisk\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\bin\Debug\MinesweeperLike.App.exe
 D:\YandexDisk\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\bin\Debug\MinesweeperLike.App.pdb
+D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\bin\Debug\MinesweeperLike.App.exe.config
+D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.exe
+D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.pdb
+D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\bin\Debug\MinesweeperLike.App.exe
+D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\bin\Debug\MinesweeperLike.App.pdb
+D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.csprojResolveAssemblyReference.cache
+D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.Forms.GameForm.resources
+D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.Properties.Resources.resources
+D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.csproj.GenerateResource.Cache

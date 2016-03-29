@@ -275,7 +275,7 @@
                     {
                         for (int j = -1; j < 2; j++)
                         {
-                            if (this.InBounds(width, height, row, i, col, j) && this.IsMine(row, i, col, j))
+                            if (this.InBounds(width, height, row, i, col, j) && this.NextPositionIsMine(row, i, col, j))
                             {
                                 number++;                                
                             }
@@ -291,27 +291,53 @@
         {
             this.ClickedButton = sender as GameButton;
 
+            if (this.dead)
+            {
+                return;
+            }
+
             int buttonCoordinateX = this.ClickedButton.Row;
             int buttonCoordinateY = this.ClickedButton.Col;
 
             this.LabelToShow = this.Database.Labels[buttonCoordinateX, buttonCoordinateY];
 
 
-            if (this.Database.GameField[buttonCoordinateX, buttonCoordinateY] == this.MineValue)
+            if (this.IsMine(buttonCoordinateX, buttonCoordinateY))
             {
-
-                this.LabelToShow.ForeColor = Color.Black;
-                this.LabelToShow.BackColor = Color.Red;
-
-                this.ClickedButton.Visible = false;
+                this.ClickedOnMine();
             }
 
             if (this.IsEmpty(buttonCoordinateX, buttonCoordinateY))
             {
-                this.RemoveEmptyLabels(buttonCoordinateX, buttonCoordinateY);
+                this.RemoveEmptyButtons(buttonCoordinateX, buttonCoordinateY);
             }
 
             this.ClickedButton.Visible = false;
+        }
+
+        private void ClickedOnMine()
+        {
+            this.LabelToShow.ForeColor = Color.Black;
+            this.LabelToShow.BackColor = Color.Red;
+
+            this.dead = true;
+            int width = this.Database.Buttons.GetLength(0);
+            int height = this.Database.Buttons.GetLength(1);
+            for (int row = 0; row < width; row++)
+            {
+                for (int col = 0; col < height; col++)
+                {
+                    if (this.IsMine(row, col))
+                    {
+                        this.Database.Buttons[row, col].Visible = false;
+                    }
+                }
+            }
+        }
+
+        private bool IsMine(int buttonCoordinateX, int buttonCoordinateY)
+        {
+            return this.Database.GameField[buttonCoordinateX, buttonCoordinateY] == this.MineValue;
         }
 
         private bool IsEmpty(int buttonX, int buttonY)
@@ -324,12 +350,12 @@
             return row + k >= 0 && col + l >= 0 && row + k < width && col + l < height;
         }
 
-        private bool IsMine(int row, int k, int col, int l)
+        private bool NextPositionIsMine(int row, int k, int col, int l)
         {
             return this.Database.GameField[row + k, col + l] == this.MineValue;
         }
 
-        private void RemoveEmptyLabels(int buttonX, int buttonY)
+        private void RemoveEmptyButtons(int buttonX, int buttonY)
         {
             if (!this.database.Buttons[buttonX, buttonY].Visible)
             {
@@ -354,7 +380,7 @@
                     currentButton.Visible = false;
                     if (currentPosition == 0)
                     {
-                        this.RemoveEmptyLabels(buttonX + i, buttonY + j);
+                        this.RemoveEmptyButtons(buttonX + i, buttonY + j);
                     }
                 }
             }
