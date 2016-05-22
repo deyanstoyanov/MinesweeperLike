@@ -11,80 +11,29 @@
     using MinesweeperLike.App.Core.Factories;
     using MinesweeperLike.App.Models;
 
-    using sweeperLike.App.Constants;
-
     public class GameController : IGameController
     {
-        private readonly IButtonFactory buttonFactory;
-
-        private readonly ILabelFactory labelFactory;
-
-        private readonly IMineFactory mineFactory;
-
-        private IDatabase database;
-
-        private GameButton clickedButton;
-
-        private Label labelToShow;
-
-        private Timer timer;
-
-        private int time;
-
-        private Form gameField;
-
         private bool dead;
-
 
         public GameController(IDatabase database, Form gameField)
         {
             this.Database = database;
             this.GameField = gameField;
-            this.buttonFactory = new ButtonFactory();
-            this.labelFactory = new LabelFactory();
-            this.mineFactory = new MineFactory();
+            this.ButtonFactory = new ButtonFactory();
+            this.LabelFactory = new LabelFactory();
+            this.MineFactory = new MineFactory();
             this.ClickedButton = new GameButton();
             this.LabelToShow = new Label();
-            //this.Time = time;
-            this.timer = new Timer();
+
+            // this.Time = time;
+            this.Timer = new Timer();
         }
 
-        public IButtonFactory ButtonFactory
-        {
-            get
-            {
-                return this.buttonFactory;
-            }
-        }
+        public IButtonFactory ButtonFactory { get; }
 
-        public ILabelFactory LabelFactory
-        {
-            get
-            {
-                return this.labelFactory;
-            }
-        }
+        public ILabelFactory LabelFactory { get; }
 
-        public IMineFactory MineFactory
-        {
-            get
-            {
-                return this.mineFactory;
-            }
-        }
-
-        public IDatabase Database
-        {
-            get
-            {
-                return this.database;
-            }
-
-            private set
-            {
-                this.database = value;
-            }
-        }
+        public IMineFactory MineFactory { get; }
 
         public int MineValue
         {
@@ -94,70 +43,17 @@
             }
         }
 
-        public GameButton ClickedButton
-        {
-            get
-            {
-                return this.clickedButton;
-            }
+        public IDatabase Database { get; private set; }
 
-            private set
-            {
-                this.clickedButton = value;
-            }
-        }
+        public GameButton ClickedButton { get; private set; }
 
-        public Form GameField
-        {
-            get
-            {
-                return this.gameField;
-            }
+        public Form GameField { get; private set; }
 
-            private set
-            {
-                this.gameField = value;
-            }
-        }
+        public Label LabelToShow { get; private set; }
 
-        public Label LabelToShow
-        {
-            get
-            {
-                return this.labelToShow;
-            }
+        public Timer Timer { get; private set; }
 
-            private set
-            {
-                this.labelToShow = value;
-            }
-        }
-
-        public Timer Timer
-        {
-            get
-            {
-                return this.timer;
-            }
-
-            private set
-            {
-                this.timer = value;
-            }
-        }
-
-        public int Time
-        {
-            get
-            {
-                return this.time;
-            }
-
-            private set
-            {
-                this.time = value;
-            }
-        }
+        public int Time { get; private set; }
 
         public void CreateButtons(Form form, MouseEventHandler mouseClick)
         {
@@ -172,7 +68,9 @@
 
                 for (int col = 0; col < height; col++)
                 {
-                    GameButton newButton = this.ButtonFactory.CreateButton(windowLocationWidth, windowLocationHeight, row, col) as GameButton;
+                    GameButton newButton =
+                        this.ButtonFactory.CreateButton(windowLocationWidth, windowLocationHeight, row, col) as
+                        GameButton;
                     if (newButton != null)
                     {
                         newButton.MouseUp += mouseClick;
@@ -212,7 +110,7 @@
             int width = this.Database.GameField.GetLength(0);
             int height = this.Database.GameField.GetLength(1);
 
-            //int minesCount = (int)((width * height) * (MineSettings.PersentOfGameSizeForCreatingMines / 100));
+            // int minesCount = (int)((width * height) * (MineSettings.PersentOfGameSizeForCreatingMines / 100));
             int minesCount = MineSettings.MineCount;
 
             if (minesCount > width * height)
@@ -243,10 +141,10 @@
                 int mineLocationY = this.Database.Labels[mineCoordinateX, mineCoordinateY].Location.Y;
 
                 this.MineFactory.CreateMine(
-                    this.Database,
-                    mineCoordinateX,
-                    mineCoordinateY,
-                    mineLocationX,
+                    this.Database, 
+                    mineCoordinateX, 
+                    mineCoordinateY, 
+                    mineLocationX, 
                     mineLocationY);
 
                 this.Database.AddMine(mineCoordinateX, mineCoordinateY);
@@ -277,7 +175,7 @@
                         {
                             if (this.InBounds(width, height, row, i, col, j) && this.NextPositionIsMine(row, i, col, j))
                             {
-                                number++;                                
+                                number++;
                             }
                         }
                     }
@@ -294,25 +192,25 @@
                 return;
             }
 
-            this.clickedButton = sender as GameButton;
+            this.ClickedButton = sender as GameButton;
 
-            if (this.clickedButton.Text != string.Empty)
+            if (this.ClickedButton.Text != string.Empty)
             {
-                this.clickedButton.Text = string.Empty;
+                this.ClickedButton.Text = string.Empty;
                 return;
             }
 
-            this.clickedButton.Text = FieldSettings.FlagChar;
-            this.clickedButton.ForeColor = Color.Red;
-            this.clickedButton.Font = new Font(FieldSettings.Font, 8);
-            this.clickedButton.TextAlign = ContentAlignment.MiddleCenter;
+            this.ClickedButton.Text = FieldSettings.FlagChar;
+            this.ClickedButton.ForeColor = Color.Red;
+            this.ClickedButton.Font = new Font(FieldSettings.Font, 8);
+            this.ClickedButton.TextAlign = ContentAlignment.MiddleCenter;
         }
 
         public void LeftButtonOnClick(object sender, EventArgs e)
         {
             this.ClickedButton = sender as GameButton;
 
-            if (this.dead || this.clickedButton.Text != string.Empty)
+            if (this.dead || this.ClickedButton.Text != string.Empty)
             {
                 return;
             }
@@ -321,7 +219,6 @@
             int buttonCoordinateY = this.ClickedButton.Col;
 
             this.LabelToShow = this.Database.Labels[buttonCoordinateX, buttonCoordinateY];
-
 
             if (this.IsMine(buttonCoordinateX, buttonCoordinateY))
             {
@@ -363,7 +260,7 @@
 
         private bool IsEmpty(int buttonX, int buttonY)
         {
-            return this.database.GameField[buttonX, buttonY] == 0;
+            return this.Database.GameField[buttonX, buttonY] == 0;
         }
 
         private bool InBounds(int width, int height, int row, int k, int col, int l)
@@ -378,7 +275,7 @@
 
         private void RemoveEmptyButtons(int buttonX, int buttonY)
         {
-            if (!this.database.Buttons[buttonX, buttonY].Visible)
+            if (!this.Database.Buttons[buttonX, buttonY].Visible)
             {
                 return;
             }

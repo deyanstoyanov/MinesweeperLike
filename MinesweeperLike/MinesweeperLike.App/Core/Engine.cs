@@ -7,11 +7,11 @@
 
     public class Engine : IEngine
     {
-        private IDatabase database;
+        private readonly IDatabase database;
 
-        private IGameController gameController;
+        private readonly Form form;
 
-        private Form form;
+        private readonly IGameController gameController;
 
         public Engine(Form form)
         {
@@ -33,7 +33,7 @@
             this.gameController.CreateNumbers();
         }
 
-        public void MouseClick(object sender, MouseEventArgs e)
+        private void MouseClick(object sender, MouseEventArgs e)
         {
             switch (e.Button)
             {

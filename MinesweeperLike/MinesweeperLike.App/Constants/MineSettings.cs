@@ -1,5 +1,4 @@
-﻿namespace 
-    sweeperLike.App.Constants
+﻿namespace MinesweeperLike.App.Constants
 {
     public class MineSettings
     {

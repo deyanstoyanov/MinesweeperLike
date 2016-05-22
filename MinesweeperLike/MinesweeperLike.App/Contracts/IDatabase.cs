@@ -1,6 +1,5 @@
 ﻿namespace MinesweeperLike.App.Contracts
 {
-    using System.Collections.Generic;
     using System.Windows.Forms;
 
     using MinesweeperLike.App.Models;
