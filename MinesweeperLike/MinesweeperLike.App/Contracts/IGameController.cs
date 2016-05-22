@@ -21,6 +21,8 @@
 
         void LeftButtonOnClick(object sender, EventArgs e);
 
+        void RightButtonOnClick(object sender, MouseEventArgs mouseEventArgs);
+
         void CreateButtons(Form form, MouseEventHandler mouseClick);
 
         void CreateLabels(Form form);

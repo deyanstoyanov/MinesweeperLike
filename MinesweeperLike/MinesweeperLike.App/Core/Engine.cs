@@ -40,6 +40,9 @@
                 case MouseButtons.Left:
                     this.gameController.LeftButtonOnClick(sender, e);
                     break;
+                case MouseButtons.Right:
+                    this.gameController.RightButtonOnClick(sender, e);
+                    break;
             }
         }
     }

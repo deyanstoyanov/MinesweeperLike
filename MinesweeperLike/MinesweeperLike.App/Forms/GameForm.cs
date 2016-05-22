@@ -29,10 +29,10 @@
             Application.Restart();
         }
 
-        private void Timer(object sender, EventArgs e)
-        {
-            this.time++;
-            this.labelTimeCounter.Text = this.time.ToString();
-        }
+        //private void Timer(object sender, EventArgs e)
+        //{
+        //    this.time++;
+        //    this.labelTimeCounter.Text = this.time.ToString();
+        //}
     }
 }

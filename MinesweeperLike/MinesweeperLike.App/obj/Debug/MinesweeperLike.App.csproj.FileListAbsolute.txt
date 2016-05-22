@@ -25,3 +25,11 @@ D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike
 D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.Forms.GameForm.resources
 D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.Properties.Resources.resources
 D:\YandexDisk\Education\MyGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.csproj.GenerateResource.Cache
+C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\bin\Debug\MinesweeperLike.App.exe.config
+C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.exe
+C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.pdb
+C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.Forms.GameForm.resources
+C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.Properties.Resources.resources
+C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.csproj.GenerateResource.Cache
+C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\bin\Debug\MinesweeperLike.App.exe
+C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\bin\Debug\MinesweeperLike.App.pdb

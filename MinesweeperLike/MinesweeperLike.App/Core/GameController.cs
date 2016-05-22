@@ -45,7 +45,7 @@
             this.mineFactory = new MineFactory();
             this.ClickedButton = new GameButton();
             this.LabelToShow = new Label();
-            this.Time = time;
+            //this.Time = time;
             this.timer = new Timer();
         }
 
@@ -287,11 +287,32 @@
             }
         }
 
+        public void RightButtonOnClick(object sender, MouseEventArgs mouseEventArgs)
+        {
+            if (this.dead)
+            {
+                return;
+            }
+
+            this.clickedButton = sender as GameButton;
+
+            if (this.clickedButton.Text != string.Empty)
+            {
+                this.clickedButton.Text = string.Empty;
+                return;
+            }
+
+            this.clickedButton.Text = FieldSettings.FlagChar;
+            this.clickedButton.ForeColor = Color.Red;
+            this.clickedButton.Font = new Font(FieldSettings.Font, 8);
+            this.clickedButton.TextAlign = ContentAlignment.MiddleCenter;
+        }
+
         public void LeftButtonOnClick(object sender, EventArgs e)
         {
             this.ClickedButton = sender as GameButton;
 
-            if (this.dead)
+            if (this.dead || this.clickedButton.Text != string.Empty)
             {
                 return;
             }
