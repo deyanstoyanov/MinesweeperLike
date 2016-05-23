@@ -36,7 +36,11 @@
 
         private void SetGameForm(Form form, IGameController gameController)
         {
+            this.gameController.FieldController.TimerConfiguration(
+                this.gameController.Timer,
+                this.gameController.IncreaseTIme);
             this.gameController.GameFormGenerator.CreateMenu(form, this.MenuStripItemsEvents);
+            this.gameController.GameFormGenerator.LoadStatusBar();
             this.gameController.GameFormGenerator.FormSize(
                 form, 
                 gameController.FieldGenerator.GameField, 

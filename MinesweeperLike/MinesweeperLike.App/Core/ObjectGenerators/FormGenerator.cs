@@ -17,6 +17,9 @@
             this.Database = database;
             this.MenuFactory = new MenuFactory();
             this.MenuItemFactory = new MenuItemFactory();
+            this.StatusStrip = new StatusStrip();
+            this.MarketButtonsStauStatusLabel = new ToolStripStatusLabel();
+            this.TimerStatusLabel = new ToolStripStatusLabel();
         }
 
         public IDatabase Database { get; }
@@ -24,6 +27,12 @@
         public IMenuFactory MenuFactory { get; }
 
         public IMenuItemFactory MenuItemFactory { get; }
+
+        public StatusStrip StatusStrip { get; }
+
+        public ToolStripStatusLabel MarketButtonsStauStatusLabel { get; }
+
+        public ToolStripStatusLabel TimerStatusLabel { get; }
 
         public void FormSize(Form form, Panel panel, int width, int height)
         {
@@ -57,7 +66,8 @@
 
         public void LoadStatusBar()
         {
-            throw new NotImplementedException();
+            this.form.Controls.Add(this.StatusStrip);
+            this.StatusStrip.Items.Add(this.TimerStatusLabel);
         }
     }
 }

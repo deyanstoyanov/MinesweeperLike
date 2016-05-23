@@ -17,6 +17,8 @@
     {
         private GameButton clickedButton;
 
+        private bool start;
+
         private bool dead;
 
         public GameController(Form form, int gameFieldWidth, int gameFieldHeight)
@@ -53,6 +55,7 @@
                 return;
             }
 
+            this.start = true;
             this.clickedButton = sender as GameButton;
 
             if (this.clickedButton.Text != string.Empty)
@@ -67,6 +70,24 @@
             this.clickedButton.TextAlign = ContentAlignment.MiddleCenter;
         }
 
+        public void IncreaseTIme(object sender, EventArgs e)
+        {
+            if (!this.GameFormGenerator.StatusStrip.Items.Contains(this.GameFormGenerator.TimerStatusLabel))
+            {
+                this.GameFormGenerator.StatusStrip.Items.Add(this.GameFormGenerator.TimerStatusLabel);
+            }
+
+            if (this.start)
+            {
+                this.Time++;
+            }
+
+            TimeSpan timeSpan = TimeSpan.FromSeconds(this.Time);
+
+            this.GameFormGenerator.TimerStatusLabel.Text =
+                $"Time:[{timeSpan.Hours:00}:{timeSpan.Minutes:00}:{timeSpan.Seconds:00}]";
+        }
+
         public void LeftButtonOnClick(object sender, MouseEventArgs mouseEventArgs)
         {
             this.clickedButton = sender as GameButton;
@@ -76,11 +97,13 @@
                 return;
             }
 
+            this.start = true;
             int buttonCoordinateX = this.clickedButton.Row;
             int buttonCoordinateY = this.clickedButton.Col;
 
             if (this.Database.GameField[buttonCoordinateX, buttonCoordinateY] == -1)
             {
+                this.start = false;
                 this.dead = true;
                 this.FieldController.ClickedOnMine(buttonCoordinateX, buttonCoordinateY);
             }

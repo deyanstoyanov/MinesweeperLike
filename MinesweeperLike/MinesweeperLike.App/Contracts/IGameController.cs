@@ -24,5 +24,7 @@
         void LeftButtonOnClick(object sender, MouseEventArgs mouseEventArgs);
 
         void RightButtonOnClick(object sender, MouseEventArgs mouseEventArgs);
+
+        void IncreaseTIme(object sender, EventArgs e);
     }
 }

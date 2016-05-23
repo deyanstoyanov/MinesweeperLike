@@ -11,6 +11,12 @@
 
         IMenuItemFactory MenuItemFactory { get; }
 
+        StatusStrip StatusStrip { get; }
+
+        ToolStripStatusLabel MarketButtonsStauStatusLabel { get; }
+
+        ToolStripStatusLabel TimerStatusLabel { get; }
+
         void FormSize(Form form, Panel panel, int width, int height);
 
 

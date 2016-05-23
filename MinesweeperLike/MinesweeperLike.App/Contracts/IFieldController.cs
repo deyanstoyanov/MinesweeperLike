@@ -1,5 +1,6 @@
 ﻿namespace MinesweeperLike.App.Contracts
 {
+    using System;
     using System.Windows.Forms;
 
     public interface IFieldController
@@ -19,5 +20,7 @@
             int minesCount, 
             int gameFieldWidth, 
             int gameFieldHeight);
+
+        void TimerConfiguration(Timer timer, EventHandler e);
     }
 }

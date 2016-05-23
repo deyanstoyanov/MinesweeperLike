@@ -99,6 +99,13 @@
             form.Controls.Add(panel);
         }
 
+        public void TimerConfiguration(Timer timer, EventHandler e)
+        {
+            timer.Enabled = true;
+            timer.Interval = 1000;
+            timer.Tick += e;
+        }
+
         private bool InBounds(int width, int height, int row, int k, int col, int l)
         {
             return row + k >= 0 && col + l >= 0 && row + k < width && col + l < height;
