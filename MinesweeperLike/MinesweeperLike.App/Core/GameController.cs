@@ -170,6 +170,26 @@
             
         }
 
+        public void CreateNewGame(
+            Form form,
+            MouseEventHandler eventHandler,
+            int gameFieldWidth,
+            int gameFieldHeight,
+            int minesCount)
+        {
+            this.Time = 0;
+            this.MarketButtonsCounter = 0;
+
+            this.FieldGenerator.ClearGameField(gameFieldWidth, gameFieldHeight);
+            this.FieldGenerator.CreateMines(minesCount, gameFieldWidth, gameFieldHeight);
+            this.FieldGenerator.CreateNumbers(gameFieldWidth, gameFieldHeight);
+            this.UpdateMarketButtonsCounter(this.MarketButtonsCounter);
+            this.FormGenerator.TimerStatusLabel.Text = @"Time:[00:00:00]";
+            this.start = false;
+            this.dead = false;
+            this.win = false;
+        }
+
         private void YouDead()
         {
             this.FormGenerator.MarketButtonsStauStatusLabel.Text = @"DEAD!";

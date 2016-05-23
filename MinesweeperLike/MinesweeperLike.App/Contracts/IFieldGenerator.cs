@@ -23,5 +23,7 @@
         void CreateMines(int minesCount, int gameFieldWidth, int gameFieldHeight);
 
         void CreateNumbers(int gameFieldWidth, int gameFieldHeight);
+
+        void ClearGameField(int gameFieldWidth, int gameFieldHeight);
     }
 }

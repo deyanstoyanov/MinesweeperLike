@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Linq;
     using System.Windows.Forms;
 
@@ -161,6 +162,42 @@
                     }
 
                     this.Database.AddNumber(number, row, col);
+                }
+            }
+        }
+
+        public void ClearGameField(int gameFieldWidth, int gameFieldHeight)
+        {
+            int width = this.Database.Buttons.GetLength(0);
+            int height = this.Database.Buttons.GetLength(1);
+
+            this.MinesCounter = 0;
+
+            // panel.Controls.Clear();
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (this.Database.Buttons[i, j].Text != string.Empty)
+                    {
+                        this.Database.Buttons[i, j].Text = string.Empty;
+                    }
+
+                    if (!this.Database.Buttons[i, j].Visible)
+                    {
+                        this.Database.Buttons[i, j].Visible = true;
+                    }
+
+                    this.Database.Labels[i, j].Text = null;
+                    this.Database.Labels[i, j].BackColor = Color.LightGray;
+                    this.Database.Labels[i, j].Font = new Font(
+                        FieldSettings.Font,
+                        LabelSettings.LabelFontSize,
+                        FontStyle.Bold,
+                        this.Database.Labels[i, j].Font.Unit);
+                    this.Database.Labels[i, j].ForeColor = Color.Black;
+                    this.Database.GameField[i, j] = 0;
+                    this.Database.MarketButtons[i, j] = false;
                 }
             }
         }

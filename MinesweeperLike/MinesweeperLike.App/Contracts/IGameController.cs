@@ -34,5 +34,12 @@
         void LoadMarketButtonsCounter(int minesCunter);
 
         void RestartGame(object sender, EventArgs e);
+
+        void CreateNewGame(
+            Form form,
+            MouseEventHandler eventHandler,
+            int gameFieldWidth,
+            int gameFieldHeight,
+            int minesCount);
     }
 }

@@ -85,7 +85,7 @@
             switch (item.Text)
             {
                 case "New Game":
-                    
+                    this.NewGame(sender, e, this.minesCount, this.gameFieldWidth, this.gameFieldHeight);
                     break;
                 case "Restart":
                     this.gameController.RestartGame(sender, e);
@@ -94,6 +94,11 @@
                     this.ExitGame();
                     break;
             }
+        }
+
+        private void NewGame(object sender, EventArgs eventArgs, int minesCount, int fieldWidth, int fieldHeight)
+        {
+            this.gameController.CreateNewGame(this.form, this.MouseClick, fieldWidth, fieldHeight, minesCount);
         }
 
         private void ExitGame()
