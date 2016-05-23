@@ -141,6 +141,34 @@
             timer.Tick += e;
         }
 
+        public void RestartGameField()
+        {
+            int width = this.Database.Buttons.GetLength(0);
+            int height = this.Database.Buttons.GetLength(1);
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (this.Database.Buttons[i, j].Text != string.Empty)
+                    {
+                        this.Database.Buttons[i, j].Text = string.Empty;
+                    }
+
+                    if (!this.Database.Buttons[i, j].Visible)
+                    {
+                        this.Database.Buttons[i, j].Visible = true;
+                    }
+
+                    this.Database.Labels[i, j].BackColor = Color.LightGray;
+                    if (this.Database.Labels[i, j].Text != MineSettings.MineChar)
+                    {
+                        this.Database.MarketButtons[i, j] = false;
+                    }
+                }
+            }
+        }
+
         private bool InBounds(int width, int height, int row, int k, int col, int l)
         {
             return row + k >= 0 && col + l >= 0 && row + k < width && col + l < height;

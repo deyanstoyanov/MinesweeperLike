@@ -32,5 +32,7 @@
         void UpdateMarketButtonsCounter(int marketButtonsCount);
 
         void LoadMarketButtonsCounter(int minesCunter);
+
+        void RestartGame(object sender, EventArgs e);
     }
 }

@@ -157,6 +157,19 @@
             this.FormGenerator.StatusStrip.Items.Add(this.FormGenerator.MarketButtonsStauStatusLabel);
         }
 
+        public void RestartGame(object sender, EventArgs e)
+        {
+            this.start = false;
+            this.dead = false;
+            this.win = false;
+            this.Time = 0;
+            this.MarketButtonsCounter = 0;
+            this.FieldController.RestartGameField();
+            this.UpdateMarketButtonsCounter(this.MarketButtonsCounter);
+            this.FormGenerator.TimerStatusLabel.Text = @"Time:[00:00:00]";
+            
+        }
+
         private void YouDead()
         {
             this.FormGenerator.MarketButtonsStauStatusLabel.Text = @"DEAD!";

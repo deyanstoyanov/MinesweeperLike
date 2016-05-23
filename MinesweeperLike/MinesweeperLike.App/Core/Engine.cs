@@ -88,7 +88,7 @@
                     
                     break;
                 case "Restart":
-                    
+                    this.gameController.RestartGame(sender, e);
                     break;
                 case "Exit":
                     this.ExitGame();

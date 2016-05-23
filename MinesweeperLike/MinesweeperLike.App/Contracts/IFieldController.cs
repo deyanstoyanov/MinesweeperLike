@@ -27,5 +27,7 @@
             int gameFieldHeight);
 
         void TimerConfiguration(Timer timer, EventHandler e);
+
+        void RestartGameField();
     }
 }
