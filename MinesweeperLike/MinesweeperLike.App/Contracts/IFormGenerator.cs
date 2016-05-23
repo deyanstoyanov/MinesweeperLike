@@ -7,6 +7,10 @@
     {
         IDatabase Database { get; }
 
+          IMenuFactory MenuFactory { get; }
+
+        IMenuItemFactory MenuItemFactory { get; }
+
         void FormSize(Form form, Panel panel, int width, int height);
 
 

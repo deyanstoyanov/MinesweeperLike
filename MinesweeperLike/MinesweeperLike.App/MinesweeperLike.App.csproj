@@ -58,11 +58,15 @@
     <Compile Include="Contracts\IGameButton.cs" />
     <Compile Include="Contracts\IGameController.cs" />
     <Compile Include="Contracts\ILabelFactory.cs" />
+    <Compile Include="Contracts\IMenuFactory.cs" />
+    <Compile Include="Contracts\IMenuItemFactory.cs" />
     <Compile Include="Contracts\IMineFactory.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\Factories\ButtonFactory.cs" />
     <Compile Include="Core\Factories\FieldFactory.cs" />
     <Compile Include="Core\Factories\LabelFactory.cs" />
+    <Compile Include="Core\Factories\MenuFactory.cs" />
+    <Compile Include="Core\Factories\MenuItemFactory.cs" />
     <Compile Include="Core\Factories\MineFactory.cs" />
     <Compile Include="Core\FieldController.cs" />
     <Compile Include="Core\GameController.cs" />

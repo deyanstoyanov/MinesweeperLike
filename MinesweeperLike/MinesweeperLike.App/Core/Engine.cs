@@ -1,5 +1,6 @@
 ﻿namespace MinesweeperLike.App.Core
 {
+    using System;
     using System.Windows.Forms;
 
     using MinesweeperLike.App.Contracts;
@@ -35,6 +36,7 @@
 
         private void SetGameForm(Form form, IGameController gameController)
         {
+            this.gameController.GameFormGenerator.CreateMenu(form, this.MenuStripItemsEvents);
             this.gameController.GameFormGenerator.FormSize(
                 form, 
                 gameController.FieldGenerator.GameField, 
@@ -69,6 +71,29 @@
                     this.gameController.RightButtonOnClick(sender, e);
                     break;
             }
+        }
+
+        private void MenuStripItemsEvents(object sender, EventArgs e)
+        {
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+
+            switch (item.Text)
+            {
+                case "New Game":
+                    
+                    break;
+                case "Restart":
+                    
+                    break;
+                case "Exit":
+                    this.ExitGame();
+                    break;
+            }
+        }
+
+        private void ExitGame()
+        {
+            Environment.Exit(1);
         }
     }
 }
