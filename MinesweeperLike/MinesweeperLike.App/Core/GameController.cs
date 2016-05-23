@@ -40,6 +40,8 @@
 
         public IFieldController FieldController { get; }
 
+        public int MarketButtonsCounter { get; set; }
+
         public Form Form { get; }
 
         public Timer Timer { get; private set; }
@@ -61,6 +63,8 @@
             if (this.clickedButton.Text != string.Empty)
             {
                 this.clickedButton.Text = string.Empty;
+                this.MarketButtonsCounter--;
+                this.UpdateMarketButtonsCounter(this.MarketButtonsCounter);
                 return;
             }
 
@@ -68,25 +72,11 @@
             this.clickedButton.ForeColor = Color.Red;
             this.clickedButton.Font = new Font(FieldSettings.Font, 8);
             this.clickedButton.TextAlign = ContentAlignment.MiddleCenter;
+            this.MarketButtonsCounter++;
+            this.UpdateMarketButtonsCounter(this.MarketButtonsCounter);
         }
 
-        public void IncreaseTIme(object sender, EventArgs e)
-        {
-            if (!this.GameFormGenerator.StatusStrip.Items.Contains(this.GameFormGenerator.TimerStatusLabel))
-            {
-                this.GameFormGenerator.StatusStrip.Items.Add(this.GameFormGenerator.TimerStatusLabel);
-            }
-
-            if (this.start)
-            {
-                this.Time++;
-            }
-
-            TimeSpan timeSpan = TimeSpan.FromSeconds(this.Time);
-
-            this.GameFormGenerator.TimerStatusLabel.Text =
-                $"Time:[{timeSpan.Hours:00}:{timeSpan.Minutes:00}:{timeSpan.Seconds:00}]";
-        }
+       
 
         public void LeftButtonOnClick(object sender, MouseEventArgs mouseEventArgs)
         {
@@ -111,9 +101,41 @@
             if (this.Database.GameField[buttonCoordinateX, buttonCoordinateY] == 0)
             {
                 this.FieldController.ClickedOnEmpty(buttonCoordinateX, buttonCoordinateY);
+                this.UpdateMarketButtonsCounter(this.MarketButtonsCounter);
             }
 
             this.clickedButton.Visible = false;
+        }
+
+        public void IncreaseTIme(object sender, EventArgs e)
+        {
+            if (!this.GameFormGenerator.StatusStrip.Items.Contains(this.GameFormGenerator.TimerStatusLabel))
+            {
+                this.GameFormGenerator.StatusStrip.Items.Add(this.GameFormGenerator.TimerStatusLabel);
+            }
+
+            if (this.start)
+            {
+                this.Time++;
+            }
+
+            TimeSpan timeSpan = TimeSpan.FromSeconds(this.Time);
+
+            this.GameFormGenerator.TimerStatusLabel.Text =
+                $"Time:[{timeSpan.Hours:00}:{timeSpan.Minutes:00}:{timeSpan.Seconds:00}]";
+        }
+
+        public void UpdateMarketButtonsCounter(int marketButtonsCount)
+        {
+            this.GameFormGenerator.MarketButtonsStauStatusLabel.Text =
+               $"Market: {marketButtonsCount} / {this.FieldGenerator.MinesCounter} mines";
+            this.GameFormGenerator.StatusStrip.Items.Add(this.GameFormGenerator.MarketButtonsStauStatusLabel);
+        }
+
+        public void LoadMarketButtonsCounter(int minesCunter)
+        {
+            this.GameFormGenerator.MarketButtonsStauStatusLabel.Text = $"Market: 0 / {minesCunter} mines";
+            this.GameFormGenerator.StatusStrip.Items.Add(this.GameFormGenerator.MarketButtonsStauStatusLabel);
         }
     }
 }

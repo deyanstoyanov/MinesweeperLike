@@ -13,6 +13,8 @@
 
         IFieldController FieldController { get; }
 
+        int MarketButtonsCounter { get; }
+
         Form Form { get; }
 
         Timer Timer { get; }
@@ -26,5 +28,9 @@
         void RightButtonOnClick(object sender, MouseEventArgs mouseEventArgs);
 
         void IncreaseTIme(object sender, EventArgs e);
+
+        void UpdateMarketButtonsCounter(int marketButtonsCount);
+
+        void LoadMarketButtonsCounter(int minesCunter);
     }
 }

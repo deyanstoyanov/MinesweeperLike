@@ -25,7 +25,7 @@
 
         public void Run()
         {
-            this.SetGameForm(this.form, this.gameController);
+            this.SetGameForm(this.form, this.gameController, this.minesCount);
             this.SetGameField(
                 this.form, 
                 this.gameController, 
@@ -34,13 +34,14 @@
                 this.gameFieldHeight);
         }
 
-        private void SetGameForm(Form form, IGameController gameController)
+        private void SetGameForm(Form form, IGameController gameController, int minesCount)
         {
             this.gameController.FieldController.TimerConfiguration(
                 this.gameController.Timer,
                 this.gameController.IncreaseTIme);
             this.gameController.GameFormGenerator.CreateMenu(form, this.MenuStripItemsEvents);
             this.gameController.GameFormGenerator.LoadStatusBar();
+            this.gameController.LoadMarketButtonsCounter(minesCount);
             this.gameController.GameFormGenerator.FormSize(
                 form, 
                 gameController.FieldGenerator.GameField, 
