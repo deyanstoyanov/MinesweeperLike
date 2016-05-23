@@ -24,10 +24,20 @@
 
         public void Run()
         {
+            this.SetGameForm(this.form, this.gameController);
             this.SetGameField(
                 this.form, 
                 this.gameController, 
                 this.minesCount, 
+                this.gameFieldWidth, 
+                this.gameFieldHeight);
+        }
+
+        private void SetGameForm(Form form, IGameController gameController)
+        {
+            this.gameController.GameFormGenerator.FormSize(
+                form, 
+                gameController.FieldGenerator.GameField, 
                 this.gameFieldWidth, 
                 this.gameFieldHeight);
         }

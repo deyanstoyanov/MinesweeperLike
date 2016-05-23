@@ -9,6 +9,8 @@
     {
         IFieldGenerator FieldGenerator { get; }
 
+        IFormGenerator GameFormGenerator { get; }
+
         IFieldController FieldController { get; }
 
         Form Form { get; }

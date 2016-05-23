@@ -54,6 +54,7 @@
     <Compile Include="Contracts\IFieldController.cs" />
     <Compile Include="Contracts\IFieldFactory.cs" />
     <Compile Include="Contracts\IFieldGenerator.cs" />
+    <Compile Include="Contracts\IFormGenerator.cs" />
     <Compile Include="Contracts\IGameButton.cs" />
     <Compile Include="Contracts\IGameController.cs" />
     <Compile Include="Contracts\ILabelFactory.cs" />

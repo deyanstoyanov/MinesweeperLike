@@ -24,6 +24,7 @@
             this.Form = form;
             this.Database = new Database(gameFieldWidth, gameFieldHeight);
             this.FieldGenerator = new FieldGenerator(this.Database);
+            this.GameFormGenerator = new FormGenerator(this.Database, this.Form);
             this.FieldController = new FieldController(this.Database, this.FieldGenerator);
             this.clickedButton = new GameButton();
             this.Timer = new Timer();
@@ -32,6 +33,8 @@
         public IDatabase Database { get; }
 
         public IFieldGenerator FieldGenerator { get; }
+
+        public IFormGenerator GameFormGenerator { get; }
 
         public IFieldController FieldController { get; }
 
