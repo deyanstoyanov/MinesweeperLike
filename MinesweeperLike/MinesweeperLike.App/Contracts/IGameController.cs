@@ -7,28 +7,20 @@
 
     public interface IGameController
     {
-        GameButton ClickedButton { get; }
+        IFieldGenerator FieldGenerator { get; }
 
-        Form GameField { get; }
+        IFieldController FieldController { get; }
 
-        IDatabase Database { get; }
-
-        Label LabelToShow { get; }
+        Form Form { get; }
 
         Timer Timer { get; }
 
+        Panel Panel { get; }
+
         int Time { get; }
 
-        void LeftButtonOnClick(object sender, EventArgs e);
+        void LeftButtonOnClick(object sender, MouseEventArgs mouseEventArgs);
 
         void RightButtonOnClick(object sender, MouseEventArgs mouseEventArgs);
-
-        void CreateButtons(Form form, MouseEventHandler mouseClick);
-
-        void CreateLabels(Form form);
-
-        void CreateMines();
-
-        void CreateNumbers();
     }
 }

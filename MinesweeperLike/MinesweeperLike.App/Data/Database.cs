@@ -10,11 +10,11 @@
 
     public class Database : IDatabase
     {
-        public Database()
+        public Database(int gameFieldWidth, int gameFieldHeight)
         {
-            this.Buttons = new GameButton[FieldSettings.FieldSizeWidth, FieldSettings.FieldSizeHeight];
-            this.GameField = new int[FieldSettings.FieldSizeWidth, FieldSettings.FieldSizeHeight];
-            this.Labels = new Label[FieldSettings.FieldSizeWidth, FieldSettings.FieldSizeHeight];
+            this.Buttons = new GameButton[gameFieldWidth, gameFieldHeight];
+            this.GameField = new int[gameFieldWidth, gameFieldHeight];
+            this.Labels = new Label[gameFieldWidth, gameFieldHeight];
         }
 
         public GameButton[,] Buttons { get; private set; }

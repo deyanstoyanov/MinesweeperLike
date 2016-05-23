@@ -3,34 +3,49 @@
     using System.Windows.Forms;
 
     using MinesweeperLike.App.Contracts;
-    using MinesweeperLike.App.Data;
 
     public class Engine : IEngine
     {
-        private readonly IDatabase database;
-
         private readonly Form form;
 
         private readonly IGameController gameController;
 
+        private readonly int gameFieldHeight = 9;
+
+        private readonly int gameFieldWidth = 9;
+
+        private readonly int minesCount = 10;
+
         public Engine(Form form)
         {
             this.form = form;
-            this.database = new Database();
-            this.gameController = new GameController(this.database, form);
+            this.gameController = new GameController(this.form, this.gameFieldWidth, this.gameFieldHeight);
         }
 
         public void Run()
         {
-            this.Execute();
+            this.SetGameField(
+                this.form, 
+                this.gameController, 
+                this.minesCount, 
+                this.gameFieldWidth, 
+                this.gameFieldHeight);
         }
 
-        private void Execute()
+        private void SetGameField(
+            Form form, 
+            IGameController gameController, 
+            int minesCount, 
+            int gameFieldWidth, 
+            int gameFieldHeight)
         {
-            this.gameController.CreateButtons(this.form, this.MouseClick);
-            this.gameController.CreateLabels(this.form);
-            this.gameController.CreateMines();
-            this.gameController.CreateNumbers();
+            this.gameController.FieldController.CreateGameField(
+                form, 
+                gameController.FieldGenerator.GameField, 
+                this.MouseClick, 
+                minesCount, 
+                gameFieldWidth, 
+                gameFieldHeight);
         }
 
         private void MouseClick(object sender, MouseEventArgs e)

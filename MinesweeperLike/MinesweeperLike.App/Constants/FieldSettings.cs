@@ -2,9 +2,9 @@
 {
     public class FieldSettings
     {
-        public const int FieldSizeWidth = 16;
+        public const int GameFieldLocationWidth = 29;
 
-        public const int FieldSizeHeight = 16;
+        public const int GameFieldLocationHeight = 59;
 
         public const string FlagChar = "X";
 

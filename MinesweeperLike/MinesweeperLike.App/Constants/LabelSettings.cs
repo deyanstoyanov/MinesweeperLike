@@ -4,10 +4,10 @@
     {
         public const int LabelFontSize = 12;
 
-        public const int MineFontSize = 22;
+        public const int MineFontSize = 12;
 
-        public const int LabelSizeWidth = 22;
+        public const int LabelSizeWidth = 20;
 
-        public const int LabelSizeHeight = 22;
+        public const int LabelSizeHeight = 20;
     }
 }

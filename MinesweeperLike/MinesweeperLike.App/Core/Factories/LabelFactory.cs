@@ -17,7 +17,7 @@
             label.Text = string.Empty;
             label.BorderStyle = BorderStyle.FixedSingle;
             label.BackColor = Color.LightGray;
-            label.Font = new Font("Microsoft Sans Serif", LabelSettings.LabelFontSize, FontStyle.Bold, label.Font.Unit);
+            label.Font = new Font(FieldSettings.Font, LabelSettings.LabelFontSize, FontStyle.Bold, label.Font.Unit);
             label.TextAlign = ContentAlignment.MiddleCenter;
 
             return label;

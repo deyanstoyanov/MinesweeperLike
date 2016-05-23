@@ -14,11 +14,12 @@
             GameButton button = new GameButton();
             button.Row = row;
             button.Col = col;
+            button.LocationX = windowLocationWidth;
+            button.LocationY = windowLocationHeight;
             button.Location = new Point(windowLocationWidth, windowLocationHeight);
             button.Size = new Size(ButtonSettings.ButtonSizeWidth, ButtonSettings.ButtonSizeHeight);
             button.FlatStyle = FlatStyle.Popup;
             button.BackColor = Color.WhiteSmoke;
-            button.FlatAppearance.MouseOverBackColor = button.ForeColor;
 
             return button;
         }

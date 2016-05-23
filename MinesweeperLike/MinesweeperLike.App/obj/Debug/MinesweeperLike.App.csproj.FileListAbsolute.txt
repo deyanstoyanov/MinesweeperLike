@@ -33,3 +33,4 @@ C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\
 C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.csproj.GenerateResource.Cache
 C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\bin\Debug\MinesweeperLike.App.exe
 C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\bin\Debug\MinesweeperLike.App.pdb
+C:\Users\stoyanov\Desktop\MinesweeperLikeGitHub\MinesweeperLike\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.csprojResolveAssemblyReference.cache
