@@ -15,7 +15,7 @@
 
         private readonly int gameFieldWidth = 9;
 
-        private readonly int minesCount = 10;
+        private readonly int minesCount = 5;
 
         public Engine(Form form)
         {
@@ -39,10 +39,10 @@
             this.gameController.FieldController.TimerConfiguration(
                 this.gameController.Timer,
                 this.gameController.IncreaseTIme);
-            this.gameController.GameFormGenerator.CreateMenu(form, this.MenuStripItemsEvents);
-            this.gameController.GameFormGenerator.LoadStatusBar();
+            this.gameController.FormGenerator.CreateMenu(form, this.MenuStripItemsEvents);
+            this.gameController.FormGenerator.LoadStatusBar();
             this.gameController.LoadMarketButtonsCounter(minesCount);
-            this.gameController.GameFormGenerator.FormSize(
+            this.gameController.FormGenerator.FormSize(
                 form, 
                 gameController.FieldGenerator.GameField, 
                 this.gameFieldWidth, 

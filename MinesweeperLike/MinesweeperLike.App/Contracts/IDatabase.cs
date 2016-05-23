@@ -8,6 +8,8 @@
     {
         GameButton[,] Buttons { get; }
 
+        bool[,] MarketButtons { get; }
+
         int[,] GameField { get; }
 
         Label[,] Labels { get; }

@@ -1,6 +1,7 @@
 ﻿namespace MinesweeperLike.App.Core
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
 
@@ -67,10 +68,44 @@
                         continue;
                     }
 
+                    this.Database.MarketButtons[buttonCoordinateX, buttonCoordinateY] = true;
                     currentButton.Visible = false;
                     if (currentPosition == 0)
                     {
                         this.ClickedOnEmpty(buttonCoordinateX + i, buttonCoordinateY + j);
+                    }
+                }
+            }
+        }
+
+        public List<bool> GetMarketButtons()
+        {
+            List<bool> marketButtons = new List<bool>();
+
+            for (int i = 0; i < this.Database.MarketButtons.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.Database.MarketButtons.GetLength(1); j++)
+                {
+                    marketButtons.Add(this.Database.MarketButtons[i, j]);
+                }
+            }
+
+            return marketButtons;
+        }
+
+        public void MarkAllMinesWithFlag()
+        {
+            int width = this.Database.MarketButtons.GetLength(0);
+            int height = this.Database.MarketButtons.GetLength(1);
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (this.Database.MarketButtons[i, j])
+                    {
+                        this.Database.Buttons[i, j].Text = FieldSettings.FlagChar;
+                        this.Database.Buttons[i, j].ForeColor = Color.Red;
                     }
                 }
             }

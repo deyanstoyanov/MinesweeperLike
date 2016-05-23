@@ -15,9 +15,12 @@
             this.Buttons = new GameButton[gameFieldWidth, gameFieldHeight];
             this.GameField = new int[gameFieldWidth, gameFieldHeight];
             this.Labels = new Label[gameFieldWidth, gameFieldHeight];
+            this.MarketButtons = new bool[gameFieldWidth, gameFieldHeight];
         }
 
         public GameButton[,] Buttons { get; private set; }
+
+        public bool[,] MarketButtons { get; }
 
         public int[,] GameField { get; private set; }
 
@@ -36,6 +39,7 @@
         public void AddMine(int row, int col)
         {
             this.GameField[row, col] = -1;
+            this.MarketButtons[row, col] = true;
         }
 
         public void AddNumber(int number, int row, int col)

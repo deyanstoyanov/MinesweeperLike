@@ -21,12 +21,14 @@
 
         private bool dead;
 
+        private bool win;
+
         public GameController(Form form, int gameFieldWidth, int gameFieldHeight)
         {
             this.Form = form;
             this.Database = new Database(gameFieldWidth, gameFieldHeight);
             this.FieldGenerator = new FieldGenerator(this.Database);
-            this.GameFormGenerator = new FormGenerator(this.Database, this.Form);
+            this.FormGenerator = new FormGenerator(this.Database, this.Form);
             this.FieldController = new FieldController(this.Database, this.FieldGenerator);
             this.clickedButton = new GameButton();
             this.Timer = new Timer();
@@ -36,7 +38,7 @@
 
         public IFieldGenerator FieldGenerator { get; }
 
-        public IFormGenerator GameFormGenerator { get; }
+        public IFormGenerator FormGenerator { get; }
 
         public IFieldController FieldController { get; }
 
@@ -52,7 +54,7 @@
 
         public void RightButtonOnClick(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (this.dead)
+            if (this.dead || this.win)
             {
                 return;
             }
@@ -82,20 +84,24 @@
         {
             this.clickedButton = sender as GameButton;
 
-            if (this.dead || this.clickedButton.Text != string.Empty)
+            if (this.dead || this.win || this.clickedButton.Text != string.Empty)
             {
                 return;
             }
 
             this.start = true;
+            this.Timer.Start();
+
             int buttonCoordinateX = this.clickedButton.Row;
             int buttonCoordinateY = this.clickedButton.Col;
 
             if (this.Database.GameField[buttonCoordinateX, buttonCoordinateY] == -1)
             {
                 this.start = false;
+                this.Timer.Stop();
                 this.dead = true;
                 this.FieldController.ClickedOnMine(buttonCoordinateX, buttonCoordinateY);
+                this.YouDead();
             }
 
             if (this.Database.GameField[buttonCoordinateX, buttonCoordinateY] == 0)
@@ -105,13 +111,26 @@
             }
 
             this.clickedButton.Visible = false;
+            this.Database.MarketButtons[buttonCoordinateX, buttonCoordinateY] = true;
+
+            var marketButtons = this.FieldController.GetMarketButtons();
+            bool allMarket = marketButtons.All(n => n);
+
+            if (allMarket)
+            {
+                this.win = true;
+                this.start = false;
+                this.Timer.Stop();
+                this.FieldController.MarkAllMinesWithFlag();
+                this.YouWin();
+            }
         }
 
         public void IncreaseTIme(object sender, EventArgs e)
         {
-            if (!this.GameFormGenerator.StatusStrip.Items.Contains(this.GameFormGenerator.TimerStatusLabel))
+            if (!this.FormGenerator.StatusStrip.Items.Contains(this.FormGenerator.TimerStatusLabel))
             {
-                this.GameFormGenerator.StatusStrip.Items.Add(this.GameFormGenerator.TimerStatusLabel);
+                this.FormGenerator.StatusStrip.Items.Add(this.FormGenerator.TimerStatusLabel);
             }
 
             if (this.start)
@@ -121,21 +140,31 @@
 
             TimeSpan timeSpan = TimeSpan.FromSeconds(this.Time);
 
-            this.GameFormGenerator.TimerStatusLabel.Text =
+            this.FormGenerator.TimerStatusLabel.Text =
                 $"Time:[{timeSpan.Hours:00}:{timeSpan.Minutes:00}:{timeSpan.Seconds:00}]";
         }
 
         public void UpdateMarketButtonsCounter(int marketButtonsCount)
         {
-            this.GameFormGenerator.MarketButtonsStauStatusLabel.Text =
+            this.FormGenerator.MarketButtonsStauStatusLabel.Text =
                $"Market: {marketButtonsCount} / {this.FieldGenerator.MinesCounter} mines";
-            this.GameFormGenerator.StatusStrip.Items.Add(this.GameFormGenerator.MarketButtonsStauStatusLabel);
+            this.FormGenerator.StatusStrip.Items.Add(this.FormGenerator.MarketButtonsStauStatusLabel);
         }
 
         public void LoadMarketButtonsCounter(int minesCunter)
         {
-            this.GameFormGenerator.MarketButtonsStauStatusLabel.Text = $"Market: 0 / {minesCunter} mines";
-            this.GameFormGenerator.StatusStrip.Items.Add(this.GameFormGenerator.MarketButtonsStauStatusLabel);
+            this.FormGenerator.MarketButtonsStauStatusLabel.Text = $"Market: 0 / {minesCunter} mines";
+            this.FormGenerator.StatusStrip.Items.Add(this.FormGenerator.MarketButtonsStauStatusLabel);
+        }
+
+        private void YouDead()
+        {
+            this.FormGenerator.MarketButtonsStauStatusLabel.Text = @"DEAD!";
+        }
+
+        private void YouWin()
+        {
+            this.FormGenerator.MarketButtonsStauStatusLabel.Text = @"COMPLETED!";
         }
     }
 }
