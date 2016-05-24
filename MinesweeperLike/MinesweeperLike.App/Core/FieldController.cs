@@ -26,6 +26,7 @@
 
         public IFieldGenerator FieldGenerator { get; }
 
+        public int MarketButtonsCounter { get; set; }
 
         public void ClickedOnMine(int buttonCoordinateX, int buttonCoordinateY)
         {
@@ -56,6 +57,11 @@
 
             var currentButton = this.Database.Buttons[buttonCoordinateX, buttonCoordinateY];
             int currentPosition = this.Database.GameField[buttonCoordinateX, buttonCoordinateY];
+
+            if (currentButton.Text == FieldSettings.FlagChar)
+            {
+                this.MarketButtonsCounter--;
+            }
 
             int width = this.Database.GameField.GetLength(0);
             int height = this.Database.GameField.GetLength(1);

@@ -42,7 +42,7 @@
 
         public IFieldController FieldController { get; }
 
-        public int MarketButtonsCounter { get; set; }
+        //public int MarketButtonsCounter { get; set; }
 
         public Form Form { get; }
 
@@ -65,8 +65,8 @@
             if (this.clickedButton.Text != string.Empty)
             {
                 this.clickedButton.Text = string.Empty;
-                this.MarketButtonsCounter--;
-                this.UpdateMarketButtonsCounter(this.MarketButtonsCounter);
+                this.FieldController.MarketButtonsCounter--;
+                this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
                 return;
             }
 
@@ -74,8 +74,8 @@
             this.clickedButton.ForeColor = Color.Red;
             this.clickedButton.Font = new Font(FieldSettings.Font, 8);
             this.clickedButton.TextAlign = ContentAlignment.MiddleCenter;
-            this.MarketButtonsCounter++;
-            this.UpdateMarketButtonsCounter(this.MarketButtonsCounter);
+            this.FieldController.MarketButtonsCounter++;
+            this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
         }
 
        
@@ -107,7 +107,7 @@
             if (this.Database.GameField[buttonCoordinateX, buttonCoordinateY] == 0)
             {
                 this.FieldController.ClickedOnEmpty(buttonCoordinateX, buttonCoordinateY);
-                this.UpdateMarketButtonsCounter(this.MarketButtonsCounter);
+                this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
             }
 
             this.clickedButton.Visible = false;
@@ -163,9 +163,9 @@
             this.dead = false;
             this.win = false;
             this.Time = 0;
-            this.MarketButtonsCounter = 0;
+            this.FieldController.MarketButtonsCounter = 0;
             this.FieldController.RestartGameField();
-            this.UpdateMarketButtonsCounter(this.MarketButtonsCounter);
+            this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
             this.FormGenerator.TimerStatusLabel.Text = @"Time:[00:00:00]";
             
         }
@@ -178,12 +178,12 @@
             int minesCount)
         {
             this.Time = 0;
-            this.MarketButtonsCounter = 0;
+            this.FieldController.MarketButtonsCounter = 0;
 
             this.FieldGenerator.ClearGameField(gameFieldWidth, gameFieldHeight);
             this.FieldGenerator.CreateMines(minesCount, gameFieldWidth, gameFieldHeight);
             this.FieldGenerator.CreateNumbers(gameFieldWidth, gameFieldHeight);
-            this.UpdateMarketButtonsCounter(this.MarketButtonsCounter);
+            this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
             this.FormGenerator.TimerStatusLabel.Text = @"Time:[00:00:00]";
             this.start = false;
             this.dead = false;

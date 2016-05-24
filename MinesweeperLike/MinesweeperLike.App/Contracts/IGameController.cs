@@ -13,7 +13,7 @@
 
         IFieldController FieldController { get; }
 
-        int MarketButtonsCounter { get; }
+        //int MarketButtonsCounter { get; }
 
         Form Form { get; }
 

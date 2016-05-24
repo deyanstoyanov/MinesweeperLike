@@ -15,7 +15,7 @@
 
         private readonly int gameFieldWidth = 9;
 
-        private readonly int minesCount = 5;
+        private readonly int minesCount = 10;
 
         public Engine(Form form)
         {

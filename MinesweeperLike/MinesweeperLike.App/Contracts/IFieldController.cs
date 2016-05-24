@@ -10,6 +10,8 @@
 
         IFieldGenerator FieldGenerator { get; }
 
+        int MarketButtonsCounter { get; set; }
+
         void ClickedOnMine(int buttonCoordinateX, int buttonCoordinateY);
 
         void ClickedOnEmpty(int buttonCoordinateX, int buttonCoordinateY);
