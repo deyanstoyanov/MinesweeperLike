@@ -8,9 +8,7 @@
                                    IDropTarget, 
                                    ISynchronizeInvoke, 
                                    IWin32Window, 
-                                   IBindableComponent, 
-                                   IComponent, 
-                                   IDisposable
+                                   IBindableComponent
     {
         int Row { get; }
 

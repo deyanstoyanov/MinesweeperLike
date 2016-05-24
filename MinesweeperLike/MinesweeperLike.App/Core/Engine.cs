@@ -3,6 +3,7 @@
     using System;
     using System.Windows.Forms;
 
+    using MinesweeperLike.App.Constants;
     using MinesweeperLike.App.Contracts;
 
     public class Engine : IEngine
@@ -11,11 +12,11 @@
 
         private IGameController gameController;
 
-        private int gameFieldHeight = 9;
+        private int gameFieldHeight = GameSettings.DefaultGameFieldSizeHeight;
 
-        private int gameFieldWidth = 9;
+        private int gameFieldWidth = GameSettings.DefaultGameFieldSizeWidth;
 
-        private int minesCount = 10;
+        private int minesCount = GameSettings.DefaultMinesCount;
 
         public Engine(Form form)
         {
@@ -26,32 +27,21 @@
         public void Run()
         {
             this.SetGameForm(this.form, this.minesCount);
-            this.SetGameField(
-                this.form, 
-                this.minesCount, 
-                this.gameFieldWidth, 
-                this.gameFieldHeight);
+            this.SetGameField(this.form, this.minesCount, this.gameFieldWidth, this.gameFieldHeight);
         }
 
         private void SetGameForm(Form form, int minesCount)
         {
             this.gameController.FieldController.TimerConfiguration(
-                this.gameController.Timer,
+                this.gameController.Timer, 
                 this.gameController.IncreaseTIme);
             this.gameController.FormGenerator.CreateMenu(form, this.MenuStripItemsEvents);
             this.gameController.FormGenerator.LoadStatusBar();
             this.gameController.LoadMarketButtonsCounter(minesCount);
-            this.gameController.FormGenerator.FormSize(
-                form, 
-                this.gameFieldWidth, 
-                this.gameFieldHeight);
+            this.gameController.FormGenerator.FormSize(form, this.gameFieldWidth, this.gameFieldHeight);
         }
 
-        private void SetGameField(
-            Form form, 
-            int minesCount, 
-            int gameFieldWidth, 
-            int gameFieldHeight)
+        private void SetGameField(Form form, int minesCount, int gameFieldWidth, int gameFieldHeight)
         {
             this.gameController.FormGenerator.CreateGameField(
                 form, 
@@ -110,7 +100,12 @@
             }
         }
 
-        private void NewGame(object sender, EventArgs eventArgs, int minesCount, int gameFieldWidth,int gameFieldHeight)
+        private void NewGame(
+            object sender, 
+            EventArgs eventArgs, 
+            int minesCount, 
+            int gameFieldWidth, 
+            int gameFieldHeight)
         {
             int currentGameFieldWidth = this.gameController.FieldGenerator.Database.Buttons.GetLength(0);
             int currentgameFieldHeight = this.gameController.FieldGenerator.Database.Buttons.GetLength(1);
@@ -122,16 +117,26 @@
                 this.form.Controls.Remove(this.gameController.FormGenerator.GameField);
 
                 this.gameController.FieldGenerator.ClearGameField(
-                    this.gameController.FieldGenerator.Database.Buttons.GetLength(0),
+                    this.gameController.FieldGenerator.Database.Buttons.GetLength(0), 
                     this.gameController.FieldGenerator.Database.Buttons.GetLength(1));
 
                 this.gameController = new GameController(this.form, gameFieldWidth, gameFieldHeight);
-                this.gameController.CreateNewGameWithOtherType(this.form, this.gameController, this.MouseClick, minesCount, gameFieldWidth, gameFieldHeight);
-                //this.NewGameWithOtherType(minesCount, fieldWidth, fieldHeight);
+                this.gameController.CreateNewGameWithOtherType(
+                    this.form, 
+                    this.gameController, 
+                    this.MouseClick, 
+                    minesCount, 
+                    gameFieldWidth, 
+                    gameFieldHeight);
             }
             else
             {
-                this.gameController.CreateNewGame(this.form, this.MouseClick, gameFieldWidth, gameFieldHeight, minesCount);
+                this.gameController.CreateNewGame(
+                    this.form, 
+                    this.MouseClick, 
+                    minesCount, 
+                    gameFieldWidth, 
+                    gameFieldHeight);
             }
         }
 

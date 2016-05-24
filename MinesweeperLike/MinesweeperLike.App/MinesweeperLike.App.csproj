@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Constants\ButtonSettings.cs" />
     <Compile Include="Constants\FieldSettings.cs" />
+    <Compile Include="Constants\GameSettings.cs" />
     <Compile Include="Constants\LabelSettings.cs" />
     <Compile Include="Constants\MineSettings.cs" />
     <Compile Include="Contracts\IButtonFactory.cs" />

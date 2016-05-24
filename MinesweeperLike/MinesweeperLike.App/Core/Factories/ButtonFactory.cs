@@ -11,15 +11,19 @@
     {
         public IGameButton CreateButton(int windowLocationWidth, int windowLocationHeight, int row, int col)
         {
-            GameButton button = new GameButton();
-            button.Row = row;
-            button.Col = col;
-            button.LocationX = windowLocationWidth;
-            button.LocationY = windowLocationHeight;
-            button.Location = new Point(windowLocationWidth, windowLocationHeight);
-            button.Size = new Size(ButtonSettings.ButtonSizeWidth, ButtonSettings.ButtonSizeHeight);
-            button.FlatStyle = FlatStyle.Popup;
-            button.BackColor = Color.WhiteSmoke;
+            GameButton button = new GameButton
+                                    {
+                                        Row = row, 
+                                        Col = col, 
+                                        LocationX = windowLocationWidth, 
+                                        LocationY = windowLocationHeight, 
+                                        Location = new Point(windowLocationWidth, windowLocationHeight), 
+                                        Size = new Size(
+                                            ButtonSettings.ButtonSizeWidth, 
+                                            ButtonSettings.ButtonSizeHeight), 
+                                        FlatStyle = FlatStyle.Popup, 
+                                        BackColor = Color.WhiteSmoke
+                                    };
 
             return button;
         }

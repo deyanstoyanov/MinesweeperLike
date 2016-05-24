@@ -11,12 +11,9 @@
 
     public class FieldController : IFieldController
     {
-        private readonly IFieldGenerator gameFieldGenerator;
-
-        public FieldController(IDatabase database, IFieldGenerator gameFieldGenerator)
+        public FieldController(IDatabase database)
         {
             this.Database = database;
-            this.gameFieldGenerator = gameFieldGenerator;
         }
 
         public IDatabase Database { get; }
@@ -35,7 +32,7 @@
             {
                 for (int j = 0; j < height; j++)
                 {
-                    if (this.Database.GameField[i, j] == -1)
+                    if (this.Database.GameField[i, j] == MineSettings.Mine)
                     {
                         this.Database.Buttons[i, j].Visible = false;
                     }

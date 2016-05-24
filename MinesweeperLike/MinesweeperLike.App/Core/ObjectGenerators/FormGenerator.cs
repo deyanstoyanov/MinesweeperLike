@@ -11,7 +11,7 @@
     {
         private readonly Form form;
 
-        public FormGenerator(IDatabase database, IFieldGenerator fieldGenerator, Form form)
+        public FormGenerator(Form form, IDatabase database, IFieldGenerator fieldGenerator)
         {
             this.form = form;
             this.Database = database;

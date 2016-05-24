@@ -25,16 +25,15 @@
 
         void FormSize(Form form, int width, int height);
 
-
         void CreateMenu(Form form, EventHandler eventHandler);
 
         void LoadStatusBar();
 
         void CreateGameField(
-           Form form,
-           MouseEventHandler mouseEventHandler,
-           int gameFieldWidth,
-           int gameFieldHeight,
-           int minesCount);
+            Form form, 
+            MouseEventHandler mouseEventHandler, 
+            int minesCount, 
+            int gameFieldWidth, 
+            int gameFieldHeight);
     }
 }

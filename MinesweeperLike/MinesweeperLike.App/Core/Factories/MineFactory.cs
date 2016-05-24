@@ -8,7 +8,7 @@
 
     public class MineFactory : IMineFactory
     {
-        public Label CreateMine(
+        public void CreateMine(
             IDatabase database,
             int mineCoordinateX,
             int mineCoordinateY,
@@ -21,8 +21,6 @@
             mine.Name = $"{mineCoordinateX}{mineCoordinateY}";
             mine.Font = new Font(FieldSettings.Font, MineSettings.MineFontSize, FontStyle.Bold, mine.Font.Unit);
             mine.TextAlign = ContentAlignment.MiddleCenter;
-
-            return mine;
         }
     }
 }

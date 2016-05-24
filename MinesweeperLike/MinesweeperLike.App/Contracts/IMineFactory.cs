@@ -4,7 +4,7 @@
 
     public interface IMineFactory
     {
-        Label CreateMine(
+        void CreateMine(
             IDatabase database,
             int mineCoordinateX,
             int mineCoordinateY,

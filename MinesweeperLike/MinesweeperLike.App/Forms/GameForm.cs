@@ -16,15 +16,5 @@
             this.engine = new Engine(this);
             this.engine.Run();
         }
-
-        private void Exit(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void Restart(object sender, EventArgs e)
-        {
-            Application.Restart();
-        }
     }
 }

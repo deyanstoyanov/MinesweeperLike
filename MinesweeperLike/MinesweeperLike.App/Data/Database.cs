@@ -38,7 +38,7 @@
 
         public void AddMine(int row, int col)
         {
-            this.GameField[row, col] = -1;
+            this.GameField[row, col] = MineSettings.Mine;
             this.MarketButtons[row, col] = true;
         }
 

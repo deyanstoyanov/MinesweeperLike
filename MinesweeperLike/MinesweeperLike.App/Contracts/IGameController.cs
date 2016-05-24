@@ -30,9 +30,9 @@
         void CreateNewGame(
             Form form,
             MouseEventHandler eventHandler,
+            int minesCount,
             int gameFieldWidth,
-            int gameFieldHeight,
-            int minesCount);
+            int gameFieldHeight);
 
         void CreateNewGameWithOtherType(
            Form form,

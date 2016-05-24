@@ -32,8 +32,8 @@
             this.form = form;
             this.database = new Database(gameFieldWidth, gameFieldHeight);
             this.FieldGenerator = new FieldGenerator(this.database);
-            this.FormGenerator = new FormGenerator(this.database, this.FieldGenerator, this.form);
-            this.FieldController = new FieldController(this.database, this.FieldGenerator);
+            this.FormGenerator = new FormGenerator(this.form, this.database, this.FieldGenerator);
+            this.FieldController = new FieldController(this.database);
             this.clickedButton = new GameButton();
             this.Timer = new Timer();
         }
@@ -86,11 +86,11 @@
             int buttonCoordinateX = this.clickedButton.Row;
             int buttonCoordinateY = this.clickedButton.Col;
 
-            if (this.database.GameField[buttonCoordinateX, buttonCoordinateY] == -1)
+            if (this.database.GameField[buttonCoordinateX, buttonCoordinateY] == MineSettings.Mine)
             {
                 this.start = false;
-                this.Timer.Stop();
                 this.dead = true;
+                this.Timer.Stop();
                 this.FieldController.ClickedOnMine(buttonCoordinateX, buttonCoordinateY);
                 this.YouDead();
             }
@@ -162,10 +162,10 @@
 
         public void CreateNewGame(
             Form form, 
-            MouseEventHandler eventHandler, 
+            MouseEventHandler eventHandler,
+            int minesCount,
             int gameFieldWidth, 
-            int gameFieldHeight, 
-            int minesCount)
+            int gameFieldHeight)
         {
             this.start = false;
             this.dead = false;

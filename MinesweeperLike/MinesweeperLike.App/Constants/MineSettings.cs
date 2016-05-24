@@ -6,8 +6,6 @@
 
         public const int MineFontSize = 20;
 
-        public const int MineCount = 20;
-
-        public const double PersentOfGameSizeForCreatingMines = 20;
+        public const int Mine = -1;
     }
 }

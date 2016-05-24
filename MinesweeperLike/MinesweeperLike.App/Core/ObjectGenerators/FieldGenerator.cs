@@ -33,14 +33,9 @@
 
         public void CreateLabels(Panel panel, int gameFieldWidth, int gameFieldHeight)
         {
-            // int width = this.Database.Labels.GetLength(0);
-            // int height = this.Database.Labels.GetLength(1);
-            int width = gameFieldWidth;
-            int height = gameFieldHeight;
-
-            for (int row = 0; row < width; row++)
+            for (int row = 0; row < gameFieldWidth; row++)
             {
-                for (int col = 0; col < height; col++)
+                for (int col = 0; col < gameFieldHeight; col++)
                 {
                     int buttonLocationX = this.Database.Buttons[row, col].LocationX;
                     int buttonLocationY = this.Database.Buttons[row, col].LocationY;
@@ -54,16 +49,13 @@
 
         public void CreateButtons(Panel panel, MouseEventHandler eventHandler, int gameFieldWidth, int gameFieldHeight)
         {
-            int width = this.Database.Buttons.GetLength(0);
-            int height = this.Database.Buttons.GetLength(1);
-
             int windowLocationHeight = ButtonSettings.WindowLocationHeight;
 
-            for (int row = 0; row < width; row++)
+            for (int row = 0; row < gameFieldWidth; row++)
             {
                 int windowLocationWidth = ButtonSettings.WindowLocationWidth;
 
-                for (int col = 0; col < height; col++)
+                for (int col = 0; col < gameFieldHeight; col++)
                 {
                     GameButton newButton =
                         this.ButtonFactory.CreateButton(windowLocationWidth, windowLocationHeight, row, col) as
@@ -85,12 +77,8 @@
         public void CreateMines(int minesCount, int gameFieldWidth, int gameFieldHeight)
         {
             Random random = new Random();
-            int width = gameFieldWidth;
-            int height = gameFieldHeight;
 
-            // int minesCount = (int)((width * height) * (MineSettings.PersentOfGameSizeForCreatingMines / 100));
-            // minesCount = MineSettings.MineCount;
-            if (minesCount > width * height)
+            if (minesCount > gameFieldWidth * gameFieldHeight)
             {
                 throw new ArgumentOutOfRangeException("Mines can not be more than game field size");
             }
@@ -99,10 +87,10 @@
 
             while (this.MinesCounter != minesCount)
             {
-                int mineCoordinateX = random.Next(width);
-                int mineCoordinateY = random.Next(height);
+                int mineCoordinateX = random.Next(gameFieldWidth);
+                int mineCoordinateY = random.Next(gameFieldHeight);
 
-                string mineCoordinates = string.Format("{0}{1}", mineCoordinateX, mineCoordinateY);
+                string mineCoordinates = $"{mineCoordinateX}{mineCoordinateY}";
                 int currentMine = Convert.ToInt32(mineCoordinates);
                 var exist = mines.Any(n => n == currentMine);
 
@@ -130,19 +118,14 @@
 
         public void CreateNumbers(int gameFieldWidth, int gameFieldHeight)
         {
-            // int width = this.Database.GameField.GetLength(0);
-            // int height = this.Database.GameField.GetLength(1);
-            int width = gameFieldWidth;
-            int height = gameFieldHeight;
-
-            for (int row = 0; row < width; row++)
+            for (int row = 0; row < gameFieldWidth; row++)
             {
-                for (int col = 0; col < height; col++)
+                for (int col = 0; col < gameFieldHeight; col++)
                 {
                     int currentPosition = this.Database.GameField[row, col];
                     int number = 0;
 
-                    if (currentPosition == -1)
+                    if (currentPosition == MineSettings.Mine)
                     {
                         continue;
                     }
@@ -151,7 +134,7 @@
                     {
                         for (int j = -1; j < 2; j++)
                         {
-                            if (this.InBounds(width, height, row, i, col, j) && this.NextPositionIsMine(row, i, col, j))
+                            if (this.InBounds(gameFieldWidth, gameFieldHeight, row, i, col, j) && this.NextPositionIsMine(row, i, col, j))
                             {
                                 number++;
                             }
@@ -165,15 +148,11 @@
 
         public void ClearGameField(int gameFieldWidth, int gameFieldHeight)
         {
-            int width = this.Database.Buttons.GetLength(0);
-            int height = this.Database.Buttons.GetLength(1);
-
             this.MinesCounter = 0;
 
-            // panel.Controls.Clear();
-            for (int i = 0; i < width; i++)
+            for (int i = 0; i < gameFieldWidth; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < gameFieldHeight; j++)
                 {
                     if (this.Database.Buttons[i, j].Text != string.Empty)
                     {
@@ -206,7 +185,7 @@
 
         private bool NextPositionIsMine(int row, int k, int col, int l)
         {
-            return this.Database.GameField[row + k, col + l] == -1;
+            return this.Database.GameField[row + k, col + l] == MineSettings.Mine;
         }
     }
 }
