@@ -10,8 +10,6 @@
     {
         private readonly IEngine engine;
 
-        private int time;
-
         public GameForm()
         {
             this.InitializeComponent();

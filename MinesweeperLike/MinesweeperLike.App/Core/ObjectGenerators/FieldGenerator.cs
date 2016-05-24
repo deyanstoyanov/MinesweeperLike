@@ -16,7 +16,6 @@
         public FieldGenerator(IDatabase database)
         {
             this.Database = database;
-            this.GameField = new Panel();
             this.ButtonFactory = new ButtonFactory();
             this.LabelFactory = new LabelFactory();
             this.MineFactory = new MineFactory();
@@ -30,9 +29,7 @@
 
         public IMineFactory MineFactory { get; }
 
-        public Panel GameField { get; set; }
-
-        public int MinesCounter { get; set; }
+        public int MinesCounter { get; private set; }
 
         public void CreateLabels(Panel panel, int gameFieldWidth, int gameFieldHeight)
         {

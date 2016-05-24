@@ -11,20 +11,15 @@
 
     public class FieldController : IFieldController
     {
-        private readonly IFieldFactory gameFieldFactory;
-
         private readonly IFieldGenerator gameFieldGenerator;
 
         public FieldController(IDatabase database, IFieldGenerator gameFieldGenerator)
         {
             this.Database = database;
             this.gameFieldGenerator = gameFieldGenerator;
-            this.gameFieldFactory = new FieldFactory();
         }
 
         public IDatabase Database { get; }
-
-        public IFieldGenerator FieldGenerator { get; }
 
         public int MarketButtonsCounter { get; set; }
 
@@ -115,29 +110,6 @@
                     }
                 }
             }
-        }
-
-        public void CreateGameField(
-            Form form,
-            Panel panel,
-            MouseEventHandler mouseEventHandler,
-            int minesCount,
-            int gameFieldWidth,
-            int gameFieldHeight)
-        {
-            if (panel == null)
-            {
-                throw new ArgumentNullException(nameof(panel));
-            }
-
-            panel = this.gameFieldFactory.CreateGameField(gameFieldWidth, gameFieldHeight);
-            this.gameFieldGenerator.GameField = panel;
-            this.gameFieldGenerator.CreateButtons(panel, mouseEventHandler, gameFieldWidth, gameFieldHeight);
-            this.gameFieldGenerator.CreateLabels(panel, gameFieldWidth, gameFieldHeight);
-            this.gameFieldGenerator.CreateMines(minesCount, gameFieldWidth, gameFieldHeight);
-            this.gameFieldGenerator.CreateNumbers(gameFieldWidth, gameFieldHeight);
-
-            form.Controls.Add(panel);
         }
 
         public void TimerConfiguration(Timer timer, EventHandler e)

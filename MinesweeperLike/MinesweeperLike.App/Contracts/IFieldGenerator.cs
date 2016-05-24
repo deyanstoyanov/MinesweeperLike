@@ -12,8 +12,6 @@
 
         IMineFactory MineFactory { get; }
 
-        Panel GameField { get; set; }
-
         int MinesCounter { get; }
 
         void CreateLabels(Panel panel, int gameFieldWidth, int gameFieldHeight);

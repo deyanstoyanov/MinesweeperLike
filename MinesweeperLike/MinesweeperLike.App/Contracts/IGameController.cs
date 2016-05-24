@@ -13,15 +13,7 @@
 
         IFieldController FieldController { get; }
 
-        //int MarketButtonsCounter { get; }
-
-        Form Form { get; }
-
         Timer Timer { get; }
-
-        Panel Panel { get; }
-
-        int Time { get; }
 
         void LeftButtonOnClick(object sender, MouseEventArgs mouseEventArgs);
 
@@ -41,5 +33,13 @@
             int gameFieldWidth,
             int gameFieldHeight,
             int minesCount);
+
+        void CreateNewGameWithOtherType(
+           Form form,
+           IGameController gameController,
+           MouseEventHandler eventHandler,
+           int minesCount,
+           int gameFieldWidth,
+           int gameFieldHeight);
     }
 }

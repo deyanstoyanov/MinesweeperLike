@@ -7,9 +7,15 @@
     {
         IDatabase Database { get; }
 
-          IMenuFactory MenuFactory { get; }
+        IMenuFactory MenuFactory { get; }
 
         IMenuItemFactory MenuItemFactory { get; }
+
+        IFieldFactory FieldFactory { get; }
+
+        IFieldGenerator FieldGenerator { get; }
+
+        Panel GameField { get; }
 
         StatusStrip StatusStrip { get; }
 
@@ -17,11 +23,18 @@
 
         ToolStripStatusLabel TimerStatusLabel { get; }
 
-        void FormSize(Form form, Panel panel, int width, int height);
+        void FormSize(Form form, int width, int height);
 
 
         void CreateMenu(Form form, EventHandler eventHandler);
 
         void LoadStatusBar();
+
+        void CreateGameField(
+           Form form,
+           MouseEventHandler mouseEventHandler,
+           int gameFieldWidth,
+           int gameFieldHeight,
+           int minesCount);
     }
 }

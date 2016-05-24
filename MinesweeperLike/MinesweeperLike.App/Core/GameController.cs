@@ -1,40 +1,42 @@
 ﻿namespace MinesweeperLike.App.Core
 {
     using System;
-    using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
     using System.Windows.Forms;
 
     using MinesweeperLike.App.Constants;
     using MinesweeperLike.App.Contracts;
-    using MinesweeperLike.App.Core.Factories;
     using MinesweeperLike.App.Core.ObjectGenerators;
     using MinesweeperLike.App.Data;
     using MinesweeperLike.App.Models;
 
     public class GameController : IGameController
     {
+        private readonly IDatabase database;
+
+        private readonly Form form;
+
         private GameButton clickedButton;
 
-        private bool start;
+        private int time;
 
         private bool dead;
+
+        private bool start;
 
         private bool win;
 
         public GameController(Form form, int gameFieldWidth, int gameFieldHeight)
         {
-            this.Form = form;
-            this.Database = new Database(gameFieldWidth, gameFieldHeight);
-            this.FieldGenerator = new FieldGenerator(this.Database);
-            this.FormGenerator = new FormGenerator(this.Database, this.Form);
-            this.FieldController = new FieldController(this.Database, this.FieldGenerator);
+            this.form = form;
+            this.database = new Database(gameFieldWidth, gameFieldHeight);
+            this.FieldGenerator = new FieldGenerator(this.database);
+            this.FormGenerator = new FormGenerator(this.database, this.FieldGenerator, this.form);
+            this.FieldController = new FieldController(this.database, this.FieldGenerator);
             this.clickedButton = new GameButton();
             this.Timer = new Timer();
         }
-
-        public IDatabase Database { get; }
 
         public IFieldGenerator FieldGenerator { get; }
 
@@ -42,15 +44,7 @@
 
         public IFieldController FieldController { get; }
 
-        //public int MarketButtonsCounter { get; set; }
-
-        public Form Form { get; }
-
-        public Timer Timer { get; private set; }
-
-        public Panel Panel { get; }
-
-        public int Time { get; private set; }
+        public Timer Timer { get; }
 
         public void RightButtonOnClick(object sender, MouseEventArgs mouseEventArgs)
         {
@@ -59,7 +53,6 @@
                 return;
             }
 
-            this.start = true;
             this.clickedButton = sender as GameButton;
 
             if (this.clickedButton.Text != string.Empty)
@@ -78,8 +71,6 @@
             this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
         }
 
-       
-
         public void LeftButtonOnClick(object sender, MouseEventArgs mouseEventArgs)
         {
             this.clickedButton = sender as GameButton;
@@ -95,7 +86,7 @@
             int buttonCoordinateX = this.clickedButton.Row;
             int buttonCoordinateY = this.clickedButton.Col;
 
-            if (this.Database.GameField[buttonCoordinateX, buttonCoordinateY] == -1)
+            if (this.database.GameField[buttonCoordinateX, buttonCoordinateY] == -1)
             {
                 this.start = false;
                 this.Timer.Stop();
@@ -104,14 +95,14 @@
                 this.YouDead();
             }
 
-            if (this.Database.GameField[buttonCoordinateX, buttonCoordinateY] == 0)
+            if (this.database.GameField[buttonCoordinateX, buttonCoordinateY] == 0)
             {
                 this.FieldController.ClickedOnEmpty(buttonCoordinateX, buttonCoordinateY);
                 this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
             }
 
             this.clickedButton.Visible = false;
-            this.Database.MarketButtons[buttonCoordinateX, buttonCoordinateY] = true;
+            this.database.MarketButtons[buttonCoordinateX, buttonCoordinateY] = true;
 
             var marketButtons = this.FieldController.GetMarketButtons();
             bool allMarket = marketButtons.All(n => n);
@@ -135,10 +126,10 @@
 
             if (this.start)
             {
-                this.Time++;
+                this.time++;
             }
 
-            TimeSpan timeSpan = TimeSpan.FromSeconds(this.Time);
+            TimeSpan timeSpan = TimeSpan.FromSeconds(this.time);
 
             this.FormGenerator.TimerStatusLabel.Text =
                 $"Time:[{timeSpan.Hours:00}:{timeSpan.Minutes:00}:{timeSpan.Seconds:00}]";
@@ -147,7 +138,7 @@
         public void UpdateMarketButtonsCounter(int marketButtonsCount)
         {
             this.FormGenerator.MarketButtonsStauStatusLabel.Text =
-               $"Market: {marketButtonsCount} / {this.FieldGenerator.MinesCounter} mines";
+                $"Market: {marketButtonsCount} / {this.FieldGenerator.MinesCounter} mines";
             this.FormGenerator.StatusStrip.Items.Add(this.FormGenerator.MarketButtonsStauStatusLabel);
         }
 
@@ -162,22 +153,24 @@
             this.start = false;
             this.dead = false;
             this.win = false;
-            this.Time = 0;
+            this.time = 0;
             this.FieldController.MarketButtonsCounter = 0;
             this.FieldController.RestartGameField();
             this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
             this.FormGenerator.TimerStatusLabel.Text = @"Time:[00:00:00]";
-            
         }
 
         public void CreateNewGame(
-            Form form,
-            MouseEventHandler eventHandler,
-            int gameFieldWidth,
-            int gameFieldHeight,
+            Form form, 
+            MouseEventHandler eventHandler, 
+            int gameFieldWidth, 
+            int gameFieldHeight, 
             int minesCount)
         {
-            this.Time = 0;
+            this.start = false;
+            this.dead = false;
+            this.win = false;
+            this.time = 0;
             this.FieldController.MarketButtonsCounter = 0;
 
             this.FieldGenerator.ClearGameField(gameFieldWidth, gameFieldHeight);
@@ -185,9 +178,27 @@
             this.FieldGenerator.CreateNumbers(gameFieldWidth, gameFieldHeight);
             this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
             this.FormGenerator.TimerStatusLabel.Text = @"Time:[00:00:00]";
-            this.start = false;
-            this.dead = false;
-            this.win = false;
+        }
+
+        public void CreateNewGameWithOtherType(
+            Form form, 
+            IGameController gameController, 
+            MouseEventHandler eventHandler, 
+            int minesCount, 
+            int gameFieldWidth, 
+            int gameFieldHeight)
+        {
+            gameController.FieldController.TimerConfiguration(gameController.Timer, gameController.IncreaseTIme);
+            gameController.FormGenerator.FormSize(form, gameFieldWidth, gameFieldHeight);
+            gameController.FormGenerator.LoadStatusBar();
+            gameController.UpdateMarketButtonsCounter(gameController.FieldController.MarketButtonsCounter);
+            gameController.LoadMarketButtonsCounter(minesCount);
+            gameController.FormGenerator.CreateGameField(
+                form, 
+                eventHandler, 
+                minesCount, 
+                gameFieldWidth, 
+                gameFieldHeight);
         }
 
         private void YouDead()
