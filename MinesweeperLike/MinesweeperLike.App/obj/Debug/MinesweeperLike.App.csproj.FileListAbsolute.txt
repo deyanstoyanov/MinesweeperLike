@@ -44,3 +44,4 @@ C:\Users\stoyanov\Desktop\Mines\MinesweeperLike\MinesweeperLike\MinesweeperLike.
 C:\Users\stoyanov\Desktop\Mines\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.Forms.GameForm.resources
 C:\Users\stoyanov\Desktop\Mines\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.Properties.Resources.resources
 C:\Users\stoyanov\Desktop\Mines\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.csproj.GenerateResource.Cache
+C:\Users\stoyanov\Desktop\Mines\MinesweeperLike\MinesweeperLike\MinesweeperLike.App\obj\Debug\MinesweeperLike.App.csprojResolveAssemblyReference.cache
