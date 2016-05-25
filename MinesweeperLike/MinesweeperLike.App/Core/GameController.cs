@@ -27,6 +27,8 @@
 
         private bool win;
 
+        private bool solvedByPowerOfCSharp;
+
         public GameController(Form form, int gameFieldWidth, int gameFieldHeight)
         {
             this.form = form;
@@ -48,7 +50,7 @@
 
         public void RightButtonOnClick(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (this.dead || this.win)
+            if (this.dead || this.win || this.solvedByPowerOfCSharp)
             {
                 return;
             }
@@ -64,8 +66,8 @@
             }
 
             this.clickedButton.Text = FieldSettings.FlagChar;
-            this.clickedButton.ForeColor = Color.Red;
-            this.clickedButton.Font = new Font(FieldSettings.Font, 8);
+            this.clickedButton.ForeColor = FieldSettings.FlagColor;
+            this.clickedButton.Font = new Font(FieldSettings.Font, FieldSettings.FlagFontSize);
             this.clickedButton.TextAlign = ContentAlignment.MiddleCenter;
             this.FieldController.MarketButtonsCounter++;
             this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
@@ -81,6 +83,7 @@
             }
 
             this.start = true;
+            this.solvedByPowerOfCSharp = false;
             this.Timer.Start();
 
             int buttonCoordinateX = this.clickedButton.Row;
@@ -148,16 +151,37 @@
             this.FormGenerator.StatusStrip.Items.Add(this.FormGenerator.MarketButtonsStauStatusLabel);
         }
 
-        public void RestartGame(object sender, EventArgs e)
+        public void RestartGame(object sender, EventArgs e, int gameFieldWidth, int gameFieldHeight)
         {
+            this.solvedByPowerOfCSharp = false;
             this.start = false;
             this.dead = false;
             this.win = false;
             this.time = 0;
             this.FieldController.MarketButtonsCounter = 0;
-            this.FieldController.RestartGameField();
+            this.FieldController.RestartGameField(gameFieldWidth, gameFieldHeight);
             this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
             this.FormGenerator.TimerStatusLabel.Text = @"Time:[00:00:00]";
+        }
+
+        public void SolveGame(int gameFieldWidth, int gameFieldHeight)
+        {
+            if (this.dead || this.win)
+            {
+                return;
+            }
+
+            if (!this.start)
+            {
+                MessageBox.Show(@"Game has not been started yet!", @"Unable to solve!",
+    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+
+            this.FieldController.SolveGameField(gameFieldWidth, gameFieldHeight);
+            this.UpdateMarketButtonsCounter(this.FieldGenerator.MinesCounter);
+            this.solvedByPowerOfCSharp = true;
+            this.Timer.Stop();
         }
 
         public void CreateNewGame(
@@ -167,6 +191,7 @@
             int gameFieldWidth, 
             int gameFieldHeight)
         {
+            this.solvedByPowerOfCSharp = false;
             this.start = false;
             this.dead = false;
             this.win = false;

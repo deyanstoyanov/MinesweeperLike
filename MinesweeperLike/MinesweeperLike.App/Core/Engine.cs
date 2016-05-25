@@ -74,7 +74,10 @@
                     this.NewGame(sender, e, this.minesCount, this.gameFieldWidth, this.gameFieldHeight);
                     break;
                 case "Restart":
-                    this.gameController.RestartGame(sender, e);
+                    this.gameController.RestartGame(sender, e, this.gameFieldWidth, this.gameFieldHeight);
+                    break;
+                case "Solve":
+                    this.gameController.SolveGame(this.gameFieldWidth, this.gameFieldHeight);
                     break;
                 case "Exit":
                     this.ExitGame();

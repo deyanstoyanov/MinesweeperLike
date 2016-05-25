@@ -20,6 +20,8 @@
 
         void TimerConfiguration(Timer timer, EventHandler e);
 
-        void RestartGameField();
+        void RestartGameField(int gameFieldWidth, int gameFieldHeight);
+
+        void SolveGameField(int gameFieldWidth, int gameFieldHeight);
     }
 }

@@ -58,6 +58,7 @@
             var game = this.MenuItemFactory.CreateItem("Game", null);
             var newGame = this.MenuItemFactory.CreateItem("New Game", eventHandler);
             var restart = this.MenuItemFactory.CreateItem("Restart", eventHandler);
+            var solve = this.MenuItemFactory.CreateItem("Solve", eventHandler);
             var exit = this.MenuItemFactory.CreateItem("Exit", eventHandler);
 
             var type = this.MenuItemFactory.CreateItem("Type", null);
@@ -71,6 +72,7 @@
             menu.Items.Add(game);
             game.DropDownItems.Add(newGame);
             game.DropDownItems.Add(restart);
+            game.DropDownItems.Add(solve);
             game.DropDownItems.Add(exit);
 
             menu.Items.Add(type);

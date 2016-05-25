@@ -57,6 +57,7 @@
 
             int width = this.Database.GameField.GetLength(0);
             int height = this.Database.GameField.GetLength(1);
+
             for (int i = -1; i < 2; i++)
             {
                 for (int j = -1; j < 2; j++)
@@ -103,7 +104,7 @@
                     if (this.Database.MarketButtons[i, j])
                     {
                         this.Database.Buttons[i, j].Text = FieldSettings.FlagChar;
-                        this.Database.Buttons[i, j].ForeColor = Color.Red;
+                        this.Database.Buttons[i, j].ForeColor = FieldSettings.FlagColor;
                     }
                 }
             }
@@ -116,14 +117,11 @@
             timer.Tick += e;
         }
 
-        public void RestartGameField()
+        public void RestartGameField(int gameFieldWidth, int gameFieldHeight)
         {
-            int width = this.Database.Buttons.GetLength(0);
-            int height = this.Database.Buttons.GetLength(1);
-
-            for (int i = 0; i < width; i++)
+            for (int i = 0; i < gameFieldWidth; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < gameFieldHeight; j++)
                 {
                     if (this.Database.Buttons[i, j].Text != string.Empty)
                     {
@@ -139,6 +137,30 @@
                     if (this.Database.Labels[i, j].Text != MineSettings.MineChar)
                     {
                         this.Database.MarketButtons[i, j] = false;
+                    }
+                }
+            }
+        }
+
+        public void SolveGameField(int gameFieldWidth, int gameFieldHeight)
+        {
+            for (int i = 0; i < gameFieldWidth; i++)
+            {
+                for (int j = 0; j < gameFieldHeight; j++)
+                {
+                    var currentButton = this.Database.Buttons[i, j];
+                    var currentGameFieldPosition = this.Database.GameField[i, j];
+
+                    if (currentGameFieldPosition == -1)
+                    {
+                        currentButton.Text = FieldSettings.FlagChar;
+                        currentButton.ForeColor = FieldSettings.FlagColor;
+                        currentButton.Font = new Font(FieldSettings.Font, FieldSettings.FlagFontSize);
+                        currentButton.TextAlign = ContentAlignment.MiddleCenter;
+                    }
+                    else
+                    {
+                        currentButton.Visible = false;
                     }
                 }
             }

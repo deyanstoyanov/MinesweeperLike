@@ -25,7 +25,9 @@
 
         void LoadMarketButtonsCounter(int minesCunter);
 
-        void RestartGame(object sender, EventArgs e);
+        void RestartGame(object sender, EventArgs e, int gameFieldWidth, int gameFieldHeight);
+
+        void SolveGame(int gameFieldWidth, int gameFieldHeight);
 
         void CreateNewGame(
             Form form,

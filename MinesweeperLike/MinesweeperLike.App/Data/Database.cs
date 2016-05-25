@@ -62,23 +62,23 @@
                 case 0:
                     return Color.Empty;
                 case 1:
-                    return Color.Blue;
+                    return Color.FromArgb(0, 0, 255);
                 case 2:
-                    return Color.Green;
+                    return Color.FromArgb(0, 127, 0);
                 case 3:
-                    return Color.Red;
+                    return Color.FromArgb(255, 0, 0);
                 case 4:
-                    return Color.DarkBlue;
+                    return Color.FromArgb(0, 0, 127);
                 case 5:
-                    return Color.SaddleBrown;
+                    return Color.FromArgb(127, 0, 0);
                 case 6:
-                    return Color.MediumAquamarine;
+                    return Color.FromArgb(0, 127, 127);
                 case 7:
-                    return Color.Black;
+                    return Color.FromArgb(0, 0, 0);
                 case 8:
-                    return Color.DimGray;
+                    return Color.FromArgb(127, 127, 127);
                 default:
-                    throw new ArgumentOutOfRangeException("number", @"Number should be in range [1-8]");
+                    throw new ArgumentOutOfRangeException(nameof(number), @"Number should be in range [1-8]");
             }
         }
     }
