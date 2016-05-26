@@ -73,6 +73,7 @@
             game.DropDownItems.Add(newGame);
             game.DropDownItems.Add(restart);
             game.DropDownItems.Add(solve);
+            game.DropDownItems.Add(new ToolStripSeparator());
             game.DropDownItems.Add(exit);
 
             menu.Items.Add(type);
