@@ -10,6 +10,8 @@
 
         public const string FlagImagePath = @"../../Resources/flag.png";
 
+        public const string NotAMinePath = @"../../Resources/not-a-mine.png";
+
         public const string Font = "Arial Rounded MT Bold";
     }
 }
