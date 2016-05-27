@@ -8,11 +8,7 @@
 
         public const int GameFieldLocationHeight = 59;
 
-        public const string FlagChar = @"⚑";
-
-        public const int FlagFontSize = 10;
-
-        public static readonly Color FlagColor = Color.Red;
+        public const string FlagImagePath = @"../../Resources/flag.png";
 
         public const string Font = "Arial Rounded MT Bold";
     }
