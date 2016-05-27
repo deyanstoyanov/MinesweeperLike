@@ -13,10 +13,13 @@
     {
         private readonly Image flag;
 
+        private readonly Image notAMine;
+
         public FieldController(IDatabase database)
         {
             this.Database = database;
             this.flag = Image.FromFile(FieldSettings.FlagImagePath);
+            this.notAMine = Image.FromFile(FieldSettings.NotAMinePath);
         }
 
 
@@ -37,9 +40,14 @@
             {
                 for (int j = 0; j < height; j++)
                 {
-                    if (this.Database.GameField[i, j] == MineSettings.Mine)
+                    if (this.Database.GameField[i, j] == MineSettings.Mine && this.Database.Buttons[i, j].Image == null)
                     {
                         this.Database.Buttons[i, j].Visible = false;
+                    }
+
+                    if (this.Database.GameField[i, j] != MineSettings.Mine && this.Database.Buttons[i, j].Image != null)
+                    {
+                        this.Database.Buttons[i, j].Image = this.notAMine;
                     }
                 }
             }
@@ -137,11 +145,12 @@
                         this.Database.Buttons[i, j].Visible = true;
                     }
 
-                    this.Database.Labels[i, j].BackColor = Color.LightGray;
                     if (this.Database.Labels[i, j].Image == null)
                     {
                         this.Database.MarketButtons[i, j] = false;
                     }
+
+                    this.Database.Labels[i, j].BackColor = Color.LightGray;
                 }
             }
         }
