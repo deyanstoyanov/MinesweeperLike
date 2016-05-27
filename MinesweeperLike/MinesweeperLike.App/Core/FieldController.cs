@@ -138,7 +138,7 @@
                     }
 
                     this.Database.Labels[i, j].BackColor = Color.LightGray;
-                    if (this.Database.Labels[i, j].Text != MineSettings.MineChar)
+                    if (this.Database.Labels[i, j].Image == null)
                     {
                         this.Database.MarketButtons[i, j] = false;
                     }

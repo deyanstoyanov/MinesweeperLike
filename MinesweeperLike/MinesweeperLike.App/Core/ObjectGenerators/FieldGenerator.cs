@@ -13,6 +13,8 @@
 
     public class FieldGenerator : IFieldGenerator
     {
+        private readonly Image mineImage = Image.FromFile(MineSettings.MineImagePath);
+
         public FieldGenerator(IDatabase database)
         {
             this.Database = database;
@@ -106,6 +108,7 @@
 
                 this.MineFactory.CreateMine(
                     this.Database,
+                    this.mineImage,
                     mineCoordinateX,
                     mineCoordinateY,
                     mineLocationX,
@@ -164,14 +167,17 @@
                         this.Database.Buttons[i, j].Visible = true;
                     }
 
-                    this.Database.Labels[i, j].Text = null;
+                    if (this.Database.Labels[i, j].Image != null)
+                    {
+                        this.Database.Labels[i, j].Image = null;
+                    }
+
+                    if (!string.IsNullOrEmpty(this.Database.Labels[i, j].Text))
+                    {
+                        this.Database.Labels[i, j].Text = null;
+                    }
+
                     this.Database.Labels[i, j].BackColor = Color.LightGray;
-                    this.Database.Labels[i, j].Font = new Font(
-                        FieldSettings.Font,
-                        LabelSettings.LabelFontSize,
-                        FontStyle.Bold,
-                        this.Database.Labels[i, j].Font.Unit);
-                    this.Database.Labels[i, j].ForeColor = Color.Black;
                     this.Database.GameField[i, j] = 0;
                     this.Database.MarketButtons[i, j] = false;
                 }

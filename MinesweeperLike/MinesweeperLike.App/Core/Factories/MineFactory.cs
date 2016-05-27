@@ -10,6 +10,7 @@
     {
         public void CreateMine(
             IDatabase database,
+            Image mineImage,
             int mineCoordinateX,
             int mineCoordinateY,
             int mineLocationX,
@@ -17,10 +18,7 @@
         {
             Label mine = database.Labels[mineCoordinateX, mineCoordinateY];
             mine.Location = new Point(mineLocationX, mineLocationY);
-            mine.Text = MineSettings.MineChar;
-            mine.Name = $"{mineCoordinateX}{mineCoordinateY}";
-            mine.Font = new Font(FieldSettings.Font, MineSettings.MineFontSize, FontStyle.Bold, mine.Font.Unit);
-            mine.TextAlign = ContentAlignment.MiddleCenter;
+            mine.Image = mineImage;
         }
     }
 }
