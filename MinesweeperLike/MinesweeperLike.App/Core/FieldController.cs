@@ -50,7 +50,7 @@
             var currentButton = this.Database.Buttons[buttonCoordinateX, buttonCoordinateY];
             int currentPosition = this.Database.GameField[buttonCoordinateX, buttonCoordinateY];
 
-            if (currentButton.Text == FieldSettings.FlagChar)
+            if (currentButton.Image != null)
             {
                 this.MarketButtonsCounter--;
             }
@@ -103,8 +103,7 @@
                 {
                     if (this.Database.MarketButtons[i, j])
                     {
-                        this.Database.Buttons[i, j].Text = FieldSettings.FlagChar;
-                        this.Database.Buttons[i, j].ForeColor = FieldSettings.FlagColor;
+                        this.Database.Buttons[i, j].Image = Image.FromFile(FieldSettings.FlagImagePath);
                     }
                 }
             }
@@ -123,9 +122,9 @@
             {
                 for (int j = 0; j < gameFieldHeight; j++)
                 {
-                    if (this.Database.Buttons[i, j].Text != string.Empty)
+                    if (this.Database.Buttons[i, j].Image != null)
                     {
-                        this.Database.Buttons[i, j].Text = string.Empty;
+                        this.Database.Buttons[i, j].Image = null;
                     }
 
                     if (!this.Database.Buttons[i, j].Visible)
@@ -153,10 +152,7 @@
 
                     if (currentGameFieldPosition == -1)
                     {
-                        currentButton.Text = FieldSettings.FlagChar;
-                        currentButton.ForeColor = FieldSettings.FlagColor;
-                        currentButton.Font = new Font(FieldSettings.Font, FieldSettings.FlagFontSize);
-                        currentButton.TextAlign = ContentAlignment.MiddleCenter;
+                        currentButton.Image = Image.FromFile(FieldSettings.FlagImagePath);
                     }
                     else
                     {

@@ -57,18 +57,15 @@
 
             this.clickedButton = sender as GameButton;
 
-            if (this.clickedButton.Text != string.Empty)
+            if (this.clickedButton.Image != null)
             {
-                this.clickedButton.Text = string.Empty;
+                this.clickedButton.Image = null;
                 this.FieldController.MarketButtonsCounter--;
                 this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
                 return;
             }
 
-            this.clickedButton.Text = FieldSettings.FlagChar;
-            this.clickedButton.ForeColor = FieldSettings.FlagColor;
-            this.clickedButton.Font = new Font(FieldSettings.Font, FieldSettings.FlagFontSize);
-            this.clickedButton.TextAlign = ContentAlignment.MiddleCenter;
+            this.clickedButton.Image = Image.FromFile(FieldSettings.FlagImagePath);
             this.FieldController.MarketButtonsCounter++;
             this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
         }
@@ -77,7 +74,7 @@
         {
             this.clickedButton = sender as GameButton;
 
-            if (this.dead || this.win || this.clickedButton.Text != string.Empty)
+            if (this.dead || this.win || this.clickedButton.Image != null)
             {
                 return;
             }
@@ -185,10 +182,10 @@
         }
 
         public void CreateNewGame(
-            Form form, 
+            Form form,
             MouseEventHandler eventHandler,
             int minesCount,
-            int gameFieldWidth, 
+            int gameFieldWidth,
             int gameFieldHeight)
         {
             this.solvedByPowerOfCSharp = false;
@@ -206,11 +203,11 @@
         }
 
         public void CreateNewGameWithOtherType(
-            Form form, 
-            IGameController gameController, 
-            MouseEventHandler eventHandler, 
-            int minesCount, 
-            int gameFieldWidth, 
+            Form form,
+            IGameController gameController,
+            MouseEventHandler eventHandler,
+            int minesCount,
+            int gameFieldWidth,
             int gameFieldHeight)
         {
             gameController.FieldController.TimerConfiguration(gameController.Timer, gameController.IncreaseTIme);
@@ -219,10 +216,10 @@
             gameController.UpdateMarketButtonsCounter(gameController.FieldController.MarketButtonsCounter);
             gameController.LoadMarketButtonsCounter(minesCount);
             gameController.FormGenerator.CreateGameField(
-                form, 
-                eventHandler, 
-                minesCount, 
-                gameFieldWidth, 
+                form,
+                eventHandler,
+                minesCount,
+                gameFieldWidth,
                 gameFieldHeight);
         }
 

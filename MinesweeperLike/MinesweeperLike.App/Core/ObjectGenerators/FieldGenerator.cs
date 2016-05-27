@@ -154,9 +154,9 @@
             {
                 for (int j = 0; j < gameFieldHeight; j++)
                 {
-                    if (this.Database.Buttons[i, j].Text != string.Empty)
+                    if (this.Database.Buttons[i, j].Image != null)
                     {
-                        this.Database.Buttons[i, j].Text = string.Empty;
+                        this.Database.Buttons[i, j].Image = null;
                     }
 
                     if (!this.Database.Buttons[i, j].Visible)
