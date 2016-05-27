@@ -65,7 +65,7 @@
                 return;
             }
 
-            this.clickedButton.Image = Image.FromFile(FieldSettings.FlagImagePath);
+            this.clickedButton.Image = this.FieldController.Flag;
             this.FieldController.MarketButtonsCounter++;
             this.UpdateMarketButtonsCounter(this.FieldController.MarketButtonsCounter);
         }

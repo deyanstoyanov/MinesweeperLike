@@ -2,11 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Drawing;
     using System.Windows.Forms;
 
     public interface IFieldController
     {
         IDatabase Database { get; }
+
+        Image Flag { get; }
 
         int MarketButtonsCounter { get; set; }
 

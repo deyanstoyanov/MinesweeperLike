@@ -11,18 +11,23 @@
 
     public class FieldController : IFieldController
     {
+        private readonly Image flag;
+
         public FieldController(IDatabase database)
         {
             this.Database = database;
+            this.flag = Image.FromFile(FieldSettings.FlagImagePath);
         }
+
 
         public IDatabase Database { get; }
 
         public int MarketButtonsCounter { get; set; }
 
+        public Image Flag => this.flag;
+
         public void ClickedOnMine(int buttonCoordinateX, int buttonCoordinateY)
         {
-            this.Database.Labels[buttonCoordinateX, buttonCoordinateY].ForeColor = Color.Black;
             this.Database.Labels[buttonCoordinateX, buttonCoordinateY].BackColor = Color.Red;
 
             int width = this.Database.Buttons.GetLength(0);
@@ -103,7 +108,7 @@
                 {
                     if (this.Database.MarketButtons[i, j])
                     {
-                        this.Database.Buttons[i, j].Image = Image.FromFile(FieldSettings.FlagImagePath);
+                        this.Database.Buttons[i, j].Image = this.flag;
                     }
                 }
             }
@@ -152,7 +157,7 @@
 
                     if (currentGameFieldPosition == -1)
                     {
-                        currentButton.Image = Image.FromFile(FieldSettings.FlagImagePath);
+                        currentButton.Image = this.flag;
                     }
                     else
                     {
