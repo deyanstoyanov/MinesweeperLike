@@ -82,7 +82,7 @@
 
             if (minesCount > gameFieldWidth * gameFieldHeight)
             {
-                throw new ArgumentOutOfRangeException("Mines can not be more than game field size");
+                throw new ArgumentOutOfRangeException(nameof(minesCount));
             }
 
             List<int> mines = new List<int>(minesCount);
@@ -107,11 +107,11 @@
                 int mineLocationY = this.Database.Labels[mineCoordinateX, mineCoordinateY].Location.Y;
 
                 this.MineFactory.CreateMine(
-                    this.Database,
-                    this.mineImage,
-                    mineCoordinateX,
-                    mineCoordinateY,
-                    mineLocationX,
+                    this.Database, 
+                    this.mineImage, 
+                    mineCoordinateX, 
+                    mineCoordinateY, 
+                    mineLocationX, 
                     mineLocationY);
 
                 this.Database.AddMine(mineCoordinateX, mineCoordinateY);
@@ -137,7 +137,8 @@
                     {
                         for (int j = -1; j < 2; j++)
                         {
-                            if (this.InBounds(gameFieldWidth, gameFieldHeight, row, i, col, j) && this.NextPositionIsMine(row, i, col, j))
+                            if (this.InBounds(gameFieldWidth, gameFieldHeight, row, i, col, j)
+                                && this.NextPositionIsMine(row, i, col, j))
                             {
                                 number++;
                             }
@@ -177,7 +178,7 @@
                         this.Database.Labels[i, j].Text = null;
                     }
 
-                    this.Database.Labels[i, j].BackColor = Color.LightGray;
+                    this.Database.Labels[i, j].BackColor = LabelSettings.LabelBackColor;
                     this.Database.GameField[i, j] = 0;
                     this.Database.MarketButtons[i, j] = false;
                 }

@@ -31,7 +31,7 @@
 
         public void ClickedOnMine(int buttonCoordinateX, int buttonCoordinateY)
         {
-            this.Database.Labels[buttonCoordinateX, buttonCoordinateY].BackColor = Color.Red;
+            this.Database.Labels[buttonCoordinateX, buttonCoordinateY].BackColor = LabelSettings.LabelClickedOnMineColor;
 
             int width = this.Database.Buttons.GetLength(0);
             int height = this.Database.Buttons.GetLength(1);
@@ -150,7 +150,7 @@
                         this.Database.MarketButtons[i, j] = false;
                     }
 
-                    this.Database.Labels[i, j].BackColor = Color.LightGray;
+                    this.Database.Labels[i, j].BackColor = LabelSettings.LabelBackColor;
                 }
             }
         }

@@ -46,7 +46,8 @@
         {
             form.AutoSize = true;
             form.Width = (height * ButtonSettings.ButtonSizeWidth) + FieldSettings.GameFieldLocationWidth + 49;
-            form.Height = (width * ButtonSettings.ButtonSizeHeight) + FieldSettings.GameFieldLocationHeight + this.StatusStrip.Size.Height + 69;
+            form.Height = (width * ButtonSettings.ButtonSizeHeight) + FieldSettings.GameFieldLocationHeight
+                          + this.StatusStrip.Size.Height + 74;
             form.FormBorderStyle = FormBorderStyle.Fixed3D;
             form.MaximizeBox = false;
         }
@@ -94,10 +95,10 @@
         }
 
         public void CreateGameField(
-            Form form,
-            MouseEventHandler mouseEventHandler,
-            int minesCount,
-            int gameFieldWidth,
+            Form form, 
+            MouseEventHandler mouseEventHandler, 
+            int minesCount, 
+            int gameFieldWidth, 
             int gameFieldHeight)
         {
             this.GameField = this.FieldFactory.CreateGameField(gameFieldWidth, gameFieldHeight);
