@@ -6,8 +6,8 @@
 
         public const int ButtonSizeHeight = 20;
 
-        public const int WindowLocationWidth = 0;
+        public const int WindowLocationWidth = 3;
 
-        public const int WindowLocationHeight = 0;
+        public const int WindowLocationHeight = 3;
     }
 }
