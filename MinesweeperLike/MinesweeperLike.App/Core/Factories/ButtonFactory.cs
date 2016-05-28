@@ -9,23 +9,38 @@
 
     public class ButtonFactory : IButtonFactory
     {
+        private GameButton button;
+
         public IGameButton CreateButton(int windowLocationWidth, int windowLocationHeight, int row, int col)
         {
-            GameButton button = new GameButton
-                                    {
-                                        Row = row, 
-                                        Col = col, 
-                                        LocationX = windowLocationWidth, 
-                                        LocationY = windowLocationHeight, 
-                                        Location = new Point(windowLocationWidth, windowLocationHeight), 
-                                        Size = new Size(
-                                            ButtonSettings.ButtonSizeWidth, 
-                                            ButtonSettings.ButtonSizeHeight), 
-                                        FlatStyle = FlatStyle.Popup, 
-                                        BackColor = Color.WhiteSmoke
-                                    };
+            this.button = new GameButton
+                              {
+                                  Row = row, 
+                                  Col = col, 
+                                  LocationX = windowLocationWidth, 
+                                  LocationY = windowLocationHeight, 
+                                  Location = new Point(windowLocationWidth, windowLocationHeight), 
+                                  Size = new Size(ButtonSettings.ButtonSizeWidth, ButtonSettings.ButtonSizeHeight), 
+                                  FlatStyle = FlatStyle.Popup, 
+                                  FlatAppearance =
+                                      {
+                                          MouseOverBackColor = ButtonSettings.ButtonBackColor, 
+                                          BorderSize = 0
+                                      }
+                              };
 
-            return button;
+            this.button.Paint += this.DrawThickBorder;
+
+            return this.button;
+        }
+
+        private void DrawThickBorder(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, this.button.ClientRectangle, 
+                SystemColors.ControlLightLight, ButtonSettings.ButtonBorderSize, ButtonBorderStyle.Solid, 
+                SystemColors.ControlLightLight, ButtonSettings.ButtonBorderSize, ButtonBorderStyle.Solid, 
+                ButtonSettings.ButtonBorderColor, ButtonSettings.ButtonBorderSize, ButtonBorderStyle.Solid, 
+                ButtonSettings.ButtonBorderColor, ButtonSettings.ButtonBorderSize, ButtonBorderStyle.Solid);
         }
     }
 }
