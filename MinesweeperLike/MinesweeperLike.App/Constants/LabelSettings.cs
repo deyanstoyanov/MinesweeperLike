@@ -4,8 +4,8 @@
     {
         public const int LabelFontSize = 12;
 
-        public const int LabelSizeWidth = 20;
+        public const int LabelSizeWidth = 21;
 
-        public const int LabelSizeHeight = 20;
+        public const int LabelSizeHeight = 21;
     }
 }
