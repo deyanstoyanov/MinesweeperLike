@@ -138,13 +138,13 @@
         public void UpdateMarketButtonsCounter(int marketButtonsCount)
         {
             this.FormGenerator.MarketButtonsStauStatusLabel.Text =
-                $"Market: {marketButtonsCount} / {this.FieldGenerator.MinesCounter} mines";
+                $"Marked: {marketButtonsCount} / {this.FieldGenerator.MinesCounter} mines";
             this.FormGenerator.StatusStrip.Items.Add(this.FormGenerator.MarketButtonsStauStatusLabel);
         }
 
         public void LoadMarketButtonsCounter(int minesCunter)
         {
-            this.FormGenerator.MarketButtonsStauStatusLabel.Text = $"Market: 0 / {minesCunter} mines";
+            this.FormGenerator.MarketButtonsStauStatusLabel.Text = $"Marked: 0 / {minesCunter} mines";
             this.FormGenerator.StatusStrip.Items.Add(this.FormGenerator.MarketButtonsStauStatusLabel);
         }
 
