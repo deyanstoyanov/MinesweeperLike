@@ -7,27 +7,26 @@
 
     using MinesweeperLike.App.Constants;
     using MinesweeperLike.App.Contracts;
-    using MinesweeperLike.App.Core.Factories;
+    using MinesweeperLike.App.Properties;
 
     public class FieldController : IFieldController
     {
-        private readonly Image flag;
+        private readonly Image notAMineImage;
 
-        private readonly Image notAMine;
+        private readonly Image flagImage;
 
         public FieldController(IDatabase database)
         {
             this.Database = database;
-            this.flag = Image.FromFile(FieldSettings.FlagImagePath);
-            this.notAMine = Image.FromFile(FieldSettings.NotAMinePath);
+            this.flagImage = Resources.flag;
+            this.notAMineImage = Resources.not_a_mine;
         }
-
 
         public IDatabase Database { get; }
 
         public int MarketButtonsCounter { get; set; }
 
-        public Image Flag => this.flag;
+        public Image Flag => this.flagImage;
 
         public void ClickedOnMine(int buttonCoordinateX, int buttonCoordinateY)
         {
@@ -47,7 +46,7 @@
 
                     if (this.Database.GameField[i, j] != MineSettings.Mine && this.Database.Buttons[i, j].Image != null)
                     {
-                        this.Database.Buttons[i, j].Image = this.notAMine;
+                        this.Database.Buttons[i, j].Image = this.notAMineImage;
                     }
                 }
             }
@@ -92,17 +91,17 @@
 
         public List<bool> GetMarketButtons()
         {
-            List<bool> marketButtons = new List<bool>();
+            List<bool> markedButtons = new List<bool>();
 
             for (int i = 0; i < this.Database.MarketButtons.GetLength(0); i++)
             {
                 for (int j = 0; j < this.Database.MarketButtons.GetLength(1); j++)
                 {
-                    marketButtons.Add(this.Database.MarketButtons[i, j]);
+                    markedButtons.Add(this.Database.MarketButtons[i, j]);
                 }
             }
 
-            return marketButtons;
+            return markedButtons;
         }
 
         public void MarkAllMinesWithFlag()
@@ -116,7 +115,7 @@
                 {
                     if (this.Database.MarketButtons[i, j])
                     {
-                        this.Database.Buttons[i, j].Image = this.flag;
+                        this.Database.Buttons[i, j].Image = this.Flag;
                     }
                 }
             }
@@ -166,7 +165,7 @@
 
                     if (currentGameFieldPosition == -1)
                     {
-                        currentButton.Image = this.flag;
+                        currentButton.Image = this.Flag;
                     }
                     else
                     {

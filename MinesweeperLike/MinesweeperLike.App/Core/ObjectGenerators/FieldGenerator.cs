@@ -10,14 +10,16 @@
     using MinesweeperLike.App.Contracts;
     using MinesweeperLike.App.Core.Factories;
     using MinesweeperLike.App.Models;
+    using MinesweeperLike.App.Properties;
 
     public class FieldGenerator : IFieldGenerator
     {
-        private readonly Image mineImage = Image.FromFile(MineSettings.MineImagePath);
+        private readonly Image mineImage;
 
         public FieldGenerator(IDatabase database)
         {
             this.Database = database;
+            this.mineImage = Resources.mine;
             this.ButtonFactory = new ButtonFactory();
             this.LabelFactory = new LabelFactory();
             this.MineFactory = new MineFactory();
@@ -43,6 +45,7 @@
                     int buttonLocationY = this.Database.Buttons[row, col].LocationY;
 
                     Label newLabel = this.LabelFactory.CreateLabel(buttonLocationX, buttonLocationY, row, col);
+
                     panel.Controls.Add(newLabel);
                     this.Database.AddLabel(newLabel, row, col);
                 }
@@ -62,14 +65,16 @@
                     GameButton newButton =
                         this.ButtonFactory.CreateButton(windowLocationWidth, windowLocationHeight, row, col) as
                         GameButton;
-                    if (newButton != null)
+                    if (newButton == null)
                     {
-                        newButton.MouseUp += eventHandler;
-                        windowLocationWidth = newButton.Right;
-
-                        panel.Controls.Add(newButton);
-                        this.Database.AddButton(newButton, row, col);
+                        continue;
                     }
+
+                    newButton.MouseUp += eventHandler;
+                    windowLocationWidth = newButton.Right;
+
+                    panel.Controls.Add(newButton);
+                    this.Database.AddButton(newButton, row, col);
                 }
 
                 windowLocationHeight += ButtonSettings.ButtonSizeWidth;
