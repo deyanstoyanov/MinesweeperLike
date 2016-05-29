@@ -23,6 +23,8 @@
 
         ToolStripStatusLabel TimerStatusLabel { get; }
 
+        ToolStripMenuItem CheckedMenuItem { get; set; }
+
         void FormSize(Form form, int width, int height);
 
         void CreateMenu(Form form, EventHandler eventHandler);

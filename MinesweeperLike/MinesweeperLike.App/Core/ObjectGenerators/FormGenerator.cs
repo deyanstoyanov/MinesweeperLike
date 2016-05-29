@@ -42,6 +42,8 @@
 
         public ToolStripStatusLabel TimerStatusLabel { get; }
 
+        public ToolStripMenuItem CheckedMenuItem { get; set; }
+
         public void FormSize(Form form, int width, int height)
         {
             form.AutoSize = true;
@@ -84,6 +86,9 @@
             type.DropDownItems.Add(hardNormalType);
             type.DropDownItems.Add(advancedType);
             type.DropDownItems.Add(chuckNorisType);
+
+            this.CheckedMenuItem = easiestType;
+            this.CheckedMenuItem.Checked = true;
 
             form.Controls.Add(menu);
         }

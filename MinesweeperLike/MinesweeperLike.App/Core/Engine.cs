@@ -66,12 +66,17 @@
 
         private void MenuStripItemsEvents(object sender, EventArgs e)
         {
-            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            ToolStripMenuItem clickedMenuItem = sender as ToolStripMenuItem;
 
-            switch (item.Text)
+            if (clickedMenuItem == null)
+            {
+                return;
+            }
+
+            switch (clickedMenuItem.Text)
             {
                 case "New Game":
-                    this.NewGame(sender, e, this.minesCount, this.gameFieldWidth, this.gameFieldHeight);
+                    this.NewGame(sender, e, clickedMenuItem, this.minesCount, this.gameFieldWidth, this.gameFieldHeight);
                     break;
                 case "Restart":
                     this.gameController.RestartGame(sender, e, this.gameFieldWidth, this.gameFieldHeight);
@@ -83,33 +88,36 @@
                     this.ExitGame();
                     break;
                 case "9x9, 10 mines":
-                    this.NewGame(sender, e, this.minesCount = 10, this.gameFieldWidth = 9, this.gameFieldHeight = 9);
+                    this.NewGame(sender, e, 
+                        clickedMenuItem, this.minesCount = 10, this.gameFieldWidth = 9, this.gameFieldHeight = 9);
                     break;
                 case "9x9, 35 mines":
-                    this.NewGame(sender, e, this.minesCount = 35, this.gameFieldWidth = 9, this.gameFieldHeight = 9);
+                    this.NewGame(sender, e, clickedMenuItem, this.minesCount = 35, this.gameFieldWidth = 9, this.gameFieldHeight = 9);
                     break;
                 case "16x16, 40 mines":
-                    this.NewGame(sender, e, this.minesCount = 40, this.gameFieldWidth = 16, this.gameFieldHeight = 16);
+                    this.NewGame(sender, e, clickedMenuItem, this.minesCount = 40, this.gameFieldWidth = 16, this.gameFieldHeight = 16);
                     break;
                 case "16x16, 99 mines":
-                    this.NewGame(sender, e, this.minesCount = 99, this.gameFieldWidth = 16, this.gameFieldHeight = 16);
+                    this.NewGame(sender, e, clickedMenuItem, this.minesCount = 99, this.gameFieldWidth = 16, this.gameFieldHeight = 16);
                     break;
                 case "30x16, 130 mines":
-                    this.NewGame(sender, e, this.minesCount = 130, this.gameFieldWidth = 16, this.gameFieldHeight = 30);
+                    this.NewGame(sender, e, clickedMenuItem, this.minesCount = 130, this.gameFieldWidth = 16, this.gameFieldHeight = 30);
                     break;
                 case "30x16, 170 mines":
-                    this.NewGame(sender, e, this.minesCount = 170, this.gameFieldWidth = 16, this.gameFieldHeight = 30);
+                    this.NewGame(sender, e, clickedMenuItem, this.minesCount = 170, this.gameFieldWidth = 16, this.gameFieldHeight = 30);
                     break;
             }
         }
 
         private void NewGame(
             object sender, 
-            EventArgs eventArgs, 
+            EventArgs eventArgs,
+            ToolStripMenuItem clickedMenuItem, 
             int minesCount, 
             int gameFieldWidth, 
             int gameFieldHeight)
         {
+            ToolStripMenuItem currentCheckedMenuItem = this.gameController.FormGenerator.CheckedMenuItem;
             int currentGameFieldWidth = this.gameController.FieldGenerator.Database.Buttons.GetLength(0);
             int currentgameFieldHeight = this.gameController.FieldGenerator.Database.Buttons.GetLength(1);
 
@@ -141,6 +149,26 @@
                     gameFieldWidth, 
                     gameFieldHeight);
             }
+
+            this.UpdateCheckedMenuItem(clickedMenuItem, currentCheckedMenuItem);
+        }
+
+        private void UpdateCheckedMenuItem(ToolStripMenuItem clickedMenuItem, ToolStripMenuItem currentCheckedMenuItemm)
+        {
+            if (!currentCheckedMenuItemm.Checked)
+            {
+                return;
+            }
+
+            if (clickedMenuItem.Text == @"New Game")
+            {
+                return;
+            }
+
+            this.gameController.FormGenerator.CheckedMenuItem = currentCheckedMenuItemm;
+            this.gameController.FormGenerator.CheckedMenuItem.Checked = false;
+            this.gameController.FormGenerator.CheckedMenuItem = clickedMenuItem;
+            this.gameController.FormGenerator.CheckedMenuItem.Checked = true;
         }
 
         private void ExitGame()
