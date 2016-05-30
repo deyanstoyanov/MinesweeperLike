@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>MinesweeperLikeLogo.ico</ApplicationIcon>
+    <ApplicationIcon>MinesIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="MinesIcon.ico" />
     <Content Include="MinesweeperLikeLogo.ico" />
     <None Include="Resources\not-a-mine.png" />
     <None Include="Resources\flag.png" />
